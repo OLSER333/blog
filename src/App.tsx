@@ -7,7 +7,7 @@ import Articles from './components/Articles/Articles'
 
 const App = () => {
   return (
-    <div>
+    <>
       <Routes>
         <Route path={'/'} element={<Layout />}>
           <Route index element={<Articles />} />
@@ -19,7 +19,7 @@ const App = () => {
           <Route path={'*'} element={<NotFoundPage />} />
         </Route>
       </Routes>
-    </div>
+    </>
   )
 }
 

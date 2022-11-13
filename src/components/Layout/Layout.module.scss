@@ -1,21 +1,38 @@
 @import "../../assets/styles/vars";
 
 .container {
+  position: relative;
+  //padding: 100px 15px;
+}
+
+.header {
+  background: #fff;
+  position: absolute;
+  left: 0;
+  right: 0;
+  width: 100vw;
+  top: 0;
+}
+
+.contentContainer {
   display: flex;
   flex-direction: column;
-  //align-items: center;
   gap: 50px;
-  margin: 0 auto;
+  padding: 100px 15px 100px;
   width: 100%;
   max-width: 1440px;
+  margin: 0 auto;
 }
 
 .nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px 20px;
+  padding: 10px 20px;
   background: $windows-bg;
+  max-width: 1920px;
+  margin: 0 auto;
+  width: 100%;
 }
 
 
@@ -25,6 +42,11 @@
   gap: 15px;
 }
 
+.profileInfo {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
 
 
 

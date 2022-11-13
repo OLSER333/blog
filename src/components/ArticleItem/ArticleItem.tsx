@@ -13,8 +13,8 @@ interface ArticleItemProps {
 const ArticleItem: FC<ArticleItemProps> = () => {
   return (
     <div className={styles.card}>
-      <div className={styles.cardHeader}>
-        <div>
+      <div className={styles.header}>
+        <div className={styles.headerTop}>
           <Title color={titleColors.BLUE}>Some article title</Title>
           <Like favorited={false} favoritesCount={12}></Like>
         </div>
@@ -23,9 +23,14 @@ const ArticleItem: FC<ArticleItemProps> = () => {
       <div className={styles.cardAuthor}>
         <div className={styles.authorInfo}>
           <p className={styles.name}>John Doe</p>
-          <p className={styles.data}></p>
+          <p className={styles.data}>March 5, 2020</p>
         </div>
         <Avatar src={avatar}></Avatar>
+      </div>
+      <div className={styles.text}>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+        labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+        laboris nisi ut aliquip ex ea commodo consequat.
       </div>
     </div>
   )

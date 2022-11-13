@@ -8,7 +8,7 @@ import ArticleItem from '../ArticleItem/ArticleItem'
 // }
 
 const Articles = () => {
-  const arts = ['1'] // '2', '3']
+  const arts = ['1', '2', '3']
   return (
     <>
       <ul className={styles.list}>
