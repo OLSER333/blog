@@ -1,0 +1,9 @@
+.tag {
+  /* @text-color-secondary */
+  color: var(--text-color-secondary);
+  border: 2px solid var(--text-color-secondary);
+  border-radius: 2px;
+  background: transparent;
+  padding: 3px 5px;
+  width: fit-content;
+}

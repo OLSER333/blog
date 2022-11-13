@@ -1,0 +1,16 @@
+.card {
+  display: grid;
+  grid-template-areas:
+'title author'
+'text btns';
+}
+
+.card-header {
+  display: flex;
+  flex-direction: column;
+}
+
+
+.cardAuthor {
+
+}
