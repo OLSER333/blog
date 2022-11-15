@@ -6,11 +6,11 @@ import Title, { titleColors } from '../Title/Title'
 import Like from '../UI/Like/Like'
 import Tag from '../UI/Tag/Tag'
 
-interface ArticleItemProps {
+interface IArticleItemProps {
   children: string
 }
 
-const ArticleItem: FC<ArticleItemProps> = () => {
+const ArticleItem: FC<IArticleItemProps> = () => {
   return (
     <div className={styles.card}>
       <div className={styles.header}>

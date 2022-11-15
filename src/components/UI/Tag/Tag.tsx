@@ -1,10 +1,10 @@
 import React, { FC } from 'react'
 import styles from './Tag.module.scss'
 
-interface TagProps {
+interface ITagProps {
   children: string
 }
 
-const Tag: FC<TagProps> = ({ children }) => <div className={styles.tag}>{children}</div>
+const Tag: FC<ITagProps> = ({ children }) => <div className={styles.tag}>{children}</div>
 
 export default Tag

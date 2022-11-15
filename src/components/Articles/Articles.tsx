@@ -3,7 +3,7 @@ import styles from './Articles.module.scss'
 import { Pagination } from 'antd'
 import ArticleItem from '../ArticleItem/ArticleItem'
 
-// interface ArticlesProps {
+// interface IArticlesProps {
 //
 // }
 
