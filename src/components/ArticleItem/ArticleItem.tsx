@@ -5,6 +5,7 @@ import { Avatar } from 'antd'
 import Title, { titleColors } from '../Title/Title'
 import Like from '../UI/Like/Like'
 import Tag from '../UI/Tag/Tag'
+import AvatarLarge from '../UI/AvatarLarge/AvatarLarge'
 
 interface IArticleItemProps {
   children: string
@@ -22,10 +23,10 @@ const ArticleItem: FC<IArticleItemProps> = () => {
       </div>
       <div className={styles.cardAuthor}>
         <div className={styles.authorInfo}>
-          <p className={styles.name}>John Doe</p>
+          <p className={'profileName'}>John Doe</p>
           <p className={styles.data}>March 5, 2020</p>
         </div>
-        <Avatar src={avatar}></Avatar>
+        <AvatarLarge src={avatar} />
       </div>
       <div className={styles.text}>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut

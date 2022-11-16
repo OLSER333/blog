@@ -1,0 +1,41 @@
+.elem {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  &::placeholder {
+    color: #BFBFBF;
+  }
+}
+
+.inp {
+  padding: 5px 10px;
+  border-radius: 6px;
+  box-sizing: border-box;
+  transform: scale(1.2) translateX(1px);
+}
+
+.erroredInp {
+  box-sizing: border-box;
+  border: 2px solid var(--highlight-color);
+  & + span {
+    position: absolute;
+    left: 0;
+    top:130%;
+
+  }
+}
+
+.alignCheckbox {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+
+.label {
+  cursor: pointer;
+  font-family: 'Roboto';
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 22px;
+  color: #595959;
+}

@@ -6,6 +6,8 @@ import styles from './Layout.module.scss'
 import avatar from '../../assets/img/avatar.png'
 import { Avatar } from 'antd'
 import Title, { titleColors } from '../Title/Title'
+import { ERoutes } from '../../routes/routes'
+import AvatarLarge from '../UI/AvatarLarge/AvatarLarge'
 
 const Layout = () => {
   // type NavLinkclassNameType = { isActive: boolean; isPending: boolean }
@@ -16,32 +18,32 @@ const Layout = () => {
       <header className={styles.header}>
         <nav className={styles.nav}>
           <div>
-            <CustomLink to={'/'}>
-              <Title color={titleColors.BLUE}>Realworld Blog</Title>
+            <CustomLink to={ERoutes.HOME}>
+              <h2 className={styles.navLogo}>Realworld Blog</h2>
             </CustomLink>
           </div>
           {!isAuth && (
             <div className={styles.singLinks}>
-              <CustomLink to={'/login'} customClass={customLinksClasses.USUAL}>
+              <CustomLink to={ERoutes.SIGN_IN} customClass={customLinksClasses.USUAL}>
                 Sign In
               </CustomLink>
-              <CustomLink to={'/new-user'} customClass={customLinksClasses.GREEN_BIG}>
+              <CustomLink to={ERoutes.SIGN_UP} customClass={customLinksClasses.GREEN_BIG}>
                 Sign Up
               </CustomLink>
             </div>
           )}
           {isAuth && (
             <div className={styles.singLinks}>
-              <CustomLink to={'/new-article'} customClass={customLinksClasses.GREEN_SMALL}>
+              <CustomLink to={ERoutes.NEW_ARTICLE} customClass={customLinksClasses.GREEN_SMALL}>
                 Create article
               </CustomLink>
               <CustomLink to={'/works'}>
                 <div className={styles.profileInfo}>
-                  <Title color={titleColors.BLACK}>John Doe</Title>
-                  <Avatar src={avatar}></Avatar>
+                  <p className={'profileName'}>John Doe</p>
+                  <AvatarLarge src={avatar}></AvatarLarge>
                 </div>
               </CustomLink>
-              <CustomLink to={'/hobby'} customClass={customLinksClasses.BLACK_BIG}>
+              <CustomLink to={ERoutes.HOME} customClass={customLinksClasses.BLACK_BIG}>
                 Log Out
               </CustomLink>
             </div>

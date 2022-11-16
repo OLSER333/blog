@@ -1,28 +1,28 @@
+.common {
+  font-family: 'Inter';
+  line-height: 28px;
+  font-size: 18px;
+  font-weight: 400;
+  &:hover {
+    border-color: var(--primary-color);
+  }
+}
+
 .usual {
   color: var(--heading-color);
-  font-family: 'Inter';
-  font-weight: 400;
-  font-size: 18px;
-  line-height: 28px;
   border-radius: 5px;
 }
 
 .greenBorderBig {
   color:  var(--success-color);
-  font-family: 'Inter';
-  font-style: normal;
-  font-weight: 400;
-  font-size: 18px;
-  line-height: 28px;
   padding: 10px 20px;
   border: 1px solid var(--success-color);
   border-radius: 5px;
+
 }
 
 .greenBorderSmall {
   color:  var(--success-color);
-  font-family: 'Inter';
-  font-weight: 400;
   font-size: 14px;
   line-height: 22px;
   padding: 5px 10px;
@@ -32,11 +32,6 @@
 
 .blackBorderBig {
   color: var(--text-color);
-  font-family: 'Inter';
-  font-style: normal;
-  font-weight: 400;
-  font-size: 18px;
-  line-height: 28px;
   padding: 10px 20px;
   border: 1px solid var(--text-color);
   border-radius: 5px;

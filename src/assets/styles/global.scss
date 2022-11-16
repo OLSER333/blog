@@ -1,0 +1,25 @@
+.profileName {
+  font-family: "Inter";
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 28px;
+  color: var(--heading-color);
+}
+
+.formAgreement {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 22px;
+  text-align: center;
+  display: block;
+  margin-top: 10px;
+  color: #595959;
+}
+
+.authForm {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}

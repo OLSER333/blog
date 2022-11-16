@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import styles from './Input.module.scss'
+import styles from './TextInput.module.scss'
 import { FieldError, FieldErrors, UseFormRegister } from 'react-hook-form'
 import { ESignUpInps, Inputs } from '../FormWindow/FormWindow'
 
@@ -12,13 +12,13 @@ interface InputProps {
   name: ESignUpInps
 }
 
-const Input: FC<InputProps> = ({ type, label, register, errors, name, placeholder }) => {
+const TextInput: FC<InputProps> = ({ type, label, register, errors, name, placeholder }) => {
   console.log(errors)
   const getClass = (hasError: FieldError | undefined) => (hasError ? styles.erroredInp : '')
 
   return (
     <div className={styles.elem}>
-      <label>{label}</label>
+      <label className={styles.label}>{label}</label>
       <input
         className={`${styles.inp} ${getClass(errors[name])}`}
         {...register}
@@ -35,4 +35,4 @@ const Input: FC<InputProps> = ({ type, label, register, errors, name, placeholde
   )
 }
 
-export default Input
+export default TextInput

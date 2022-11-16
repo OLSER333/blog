@@ -1,10 +1,11 @@
 import React from 'react'
 import styles from './CreateUser.module.scss'
 import FormWindow from '../UI/FormWindow/FormWindow'
+import SignUpForm from '../forms/SignUpForm/SignUpForm'
 
 // interface ICreateUserProps {}
 // : FC<ICreateUserProps>
-const CreateUser = () => {
+const SignUpUser = () => {
   // const fields: IInputField[] = [
   //   {
   //     type: EInputTypes.TEXT,
@@ -36,9 +37,11 @@ const CreateUser = () => {
    */
   return (
     <div className={styles.CreateUser}>
-      <FormWindow />
+      <FormWindow>
+        <SignUpForm />
+      </FormWindow>
     </div>
   )
 }
 
-export default CreateUser
+export default SignUpUser

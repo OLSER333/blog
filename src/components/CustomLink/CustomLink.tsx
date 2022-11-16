@@ -20,7 +20,11 @@ const CustomLink = ({ children, to, customClass, ...props }: IcustomLink) => {
   // const match = useMatch(to)
   //   <Link to={to} className={match ? 'active-router-link' : ''} {...props}>
   return (
-    <Link to={to} className={customClass ? styles[customClass] : ''} {...props}>
+    <Link
+      to={to}
+      className={`${styles.common} ${customClass ? styles[customClass] : ''}`}
+      {...props}
+    >
       {children}
     </Link>
   )

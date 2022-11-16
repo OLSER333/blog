@@ -4,21 +4,25 @@ import { Route, Routes } from 'react-router-dom'
 import Layout from './components/Layout/Layout'
 import NotFoundPage from './pages/NotFoundPage'
 import Articles from './components/Articles/Articles'
-import CreateUser from './components/CreateUser/CreateUser'
+import SignUpUser from './components/CreateUser/SignUpUser'
+import { ERoutes } from './routes/routes'
+import SignInUser from './components/SignInUser/SignInUser'
 
 const App = () => {
   return (
     <>
       <Routes>
-        <Route path={'/'} element={<Layout />}>
+        <Route path={ERoutes.HOME} element={<Layout />}>
           <Route index element={<Articles />} />
-          <Route path={'/new-user'} element={<CreateUser />} />
+          <Route path={ERoutes.SIGN_UP} element={<SignUpUser />} />
+          <Route path={ERoutes.SIGN_IN} element={<SignInUser />} />
+          {/* <Route path={ERoutes.NEW_USER} element={<SignUpUser />} />*/}
           {/* <Route path={'/works'} element={<Works />} />*/}
           {/* <Route path={'/worksss'} element={<Navigate to={'/works'} replace state={'123'} />} />*/}
           {/* <Route path={'/works/:id'} element={<SingleWork />} />*/}
           {/* <Route path={'/works/:id/edit'} element={<EditWork />} />*/}
           {/* <Route path={'/hobby'} element={} />*/}
-          <Route path={'*'} element={<NotFoundPage />} />
+          <Route path={ERoutes.ANY} element={<NotFoundPage />} />
         </Route>
       </Routes>
     </>

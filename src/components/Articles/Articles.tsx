@@ -1,6 +1,7 @@
 import React from 'react'
 import styles from './Articles.module.scss'
-import { Pagination } from 'antd'
+import { Button, Pagination } from 'antd'
+// import 'antd/dist/antd.css'
 import ArticleItem from '../ArticleItem/ArticleItem'
 
 // interface IArticlesProps {
