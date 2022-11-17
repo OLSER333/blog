@@ -1,7 +1,7 @@
 import React, { FC } from 'react'
 import styles from './ArticleItem.module.scss'
 import avatar from '../../assets/img/avatar.png'
-import { Avatar, Button } from 'antd'
+import { Avatar, Button, Popconfirm } from 'antd'
 import Title, { titleColors } from '../UI/Title/Title'
 import Like from '../UI/Like/Like'
 import Tag from '../UI/Tag/Tag'
@@ -38,9 +38,16 @@ const ArticleItem: FC<IArticleItemProps> = () => {
         laboris nisi ut aliquip ex ea commodo consequat.
       </div>
       <div className={styles.btns}>
-        <Button ghost danger>
-          Delete
-        </Button>
+        <Popconfirm
+          title='Are you sure to delete this article?'
+          okText='Yes'
+          cancelText='No'
+          placement={'right'}
+        >
+          <Button ghost danger>
+            Delete
+          </Button>
+        </Popconfirm>
         <Button style={editBtn}>Edit</Button>
       </div>
     </div>
