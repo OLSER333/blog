@@ -1,7 +1,7 @@
 import React from 'react'
 import styles from './CreateUser.module.scss'
-import FormWindow from '../UI/FormWindow/FormWindow'
-import SignUpForm from '../forms/SignUpForm/SignUpForm'
+import FormWindow from '../../components/UI/FormWindow/FormWindow'
+import SignUpForm from '../../components/forms/SignUpForm/SignUpForm'
 
 // interface ICreateUserProps {}
 // : FC<ICreateUserProps>

@@ -1,8 +1,8 @@
 import React, { FC } from 'react'
 import styles from './ArticleItem.module.scss'
 import avatar from '../../assets/img/avatar.png'
-import { Avatar } from 'antd'
-import Title, { titleColors } from '../Title/Title'
+import { Avatar, Button } from 'antd'
+import Title, { titleColors } from '../UI/Title/Title'
 import Like from '../UI/Like/Like'
 import Tag from '../UI/Tag/Tag'
 import AvatarLarge from '../UI/AvatarLarge/AvatarLarge'
@@ -12,6 +12,10 @@ interface IArticleItemProps {
 }
 
 const ArticleItem: FC<IArticleItemProps> = () => {
+  const editBtn = {
+    color: ' var(--success-color)',
+    border: '1px solid  var(--success-color)',
+  }
   return (
     <div className={styles.card}>
       <div className={styles.header}>
@@ -32,6 +36,12 @@ const ArticleItem: FC<IArticleItemProps> = () => {
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
         labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
         laboris nisi ut aliquip ex ea commodo consequat.
+      </div>
+      <div className={styles.btns}>
+        <Button ghost danger>
+          Delete
+        </Button>
+        <Button style={editBtn}>Edit</Button>
       </div>
     </div>
   )

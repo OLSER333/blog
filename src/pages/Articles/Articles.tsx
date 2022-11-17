@@ -2,7 +2,7 @@ import React from 'react'
 import styles from './Articles.module.scss'
 import { Button, Pagination } from 'antd'
 // import 'antd/dist/antd.css'
-import ArticleItem from '../ArticleItem/ArticleItem'
+import ArticleItem from '../../components/ArticleItem/ArticleItem'
 
 // interface IArticlesProps {
 //

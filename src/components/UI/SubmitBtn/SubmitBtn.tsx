@@ -4,10 +4,11 @@ import { Button } from 'antd'
 
 interface SubmitBtnProps {
   children: string
+  addStyles?: any
 }
 
-const SubmitBtn: FC<SubmitBtnProps> = ({ children }) => (
-  <Button type={'primary'} className={styles.submitBtn} htmlType='submit'>
+const SubmitBtn: FC<SubmitBtnProps> = ({ children, addStyles }) => (
+  <Button type={'primary'} style={addStyles} className={styles.submitBtn} htmlType='submit'>
     {children}
   </Button>
 )

@@ -1,22 +1,15 @@
 import React, { FC } from 'react'
-import styles from './SignInForm.module.scss'
+import styles from './EditUserForm.module.scss'
 import Title, { titleColors } from '../../UI/Title/Title'
 import TextInput from '../../UI/TextInput/TextInput'
 import { EFormInps, Inputs } from '../../UI/FormWindow/FormWindow'
 import { FormErrorsMsg } from '../../../types/FormErrorsMsg'
-import { Divider } from 'antd'
-import CheckBox from '../../UI/CheckBox/CheckBox'
 import SubmitBtn from '../../UI/SubmitBtn/SubmitBtn'
 import { Link } from 'react-router-dom'
 import { ERoutes } from '../../../routes/routes'
 import { SubmitHandler, useForm } from 'react-hook-form'
 
-// interface SignInFormProps {
-//   children: any
-// }
-// : FC<SignInFormProps>
-
-const SignInForm = () => {
+const EditUserForm = () => {
   const {
     register,
     handleSubmit,
@@ -29,8 +22,18 @@ const SignInForm = () => {
 
   return (
     <>
-      <Title color={titleColors.BLACK}>Create new account</Title>
+      <Title color={titleColors.BLACK}>Edit Profile</Title>
       <form className={'authForm'} onSubmit={handleSubmit(onSubmit)}>
+        <TextInput
+          register={register(EFormInps.USERNAME, {
+            required: true,
+          })}
+          type={'text'}
+          label={'Username'}
+          errors={errors}
+          name={EFormInps.USERNAME}
+          placeholder={'Username'}
+        />
         <TextInput
           register={register(EFormInps.EMAIL, {
             required: true,
@@ -55,19 +58,32 @@ const SignInForm = () => {
               value.length > 5 && value.length < 41 ? true : FormErrorsMsg.from6to20,
           })}
           type={'password'}
-          label={'Password'}
+          label={'New password'}
           errors={errors}
           name={EFormInps.PASSWORD}
-          placeholder={'Password'}
+          placeholder={'New password'}
         />
 
-        <SubmitBtn>Login</SubmitBtn>
+        <TextInput
+          register={register(EFormInps.AVATAR_PATH, {
+            required: true,
+            pattern: {
+              value:
+                /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)/,
+              message: 'Incorrect address',
+            },
+          })}
+          type={'password'}
+          label={'Avatar image'}
+          errors={errors}
+          name={EFormInps.AVATAR_PATH}
+          placeholder={'Avatar image (url)'}
+        />
+
+        <SubmitBtn>Save</SubmitBtn>
       </form>
-      <span className={'formAgreement'}>
-        Don’t have an account? <Link to={ERoutes.SIGN_UP}>Sign Up.</Link>
-      </span>
     </>
   )
 }
 
-export default SignInForm
+export default EditUserForm

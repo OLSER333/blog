@@ -1,10 +1,9 @@
 import React, { FC } from 'react'
-import styles from './TextInput.module.scss'
-import { FieldError, FieldErrors, UseFormRegister } from 'react-hook-form'
+import { FieldError, FieldErrors } from 'react-hook-form'
+import styles from './TextareaInput.module.scss'
 import { EFormInps, Inputs } from '../FormWindow/FormWindow'
 
 interface InputProps {
-  type: string
   label: string
   placeholder: EFormInps | string
   register: any
@@ -12,18 +11,17 @@ interface InputProps {
   name: EFormInps
 }
 
-const TextInput: FC<InputProps> = ({ type, label, register, errors, name, placeholder }) => {
+const TextareaInput: FC<InputProps> = ({ label, register, errors, name, placeholder }) => {
   console.log(errors)
   const getClass = (hasError: FieldError | undefined) => (hasError ? styles.erroredInp : '')
 
   return (
     <div className={styles.elem}>
       <label className={styles.label}>{label}</label>
-      <input
+      <textarea
         className={`${styles.inp} ${getClass(errors[name])}`}
         {...register}
         placeholder={placeholder}
-        type={type}
       />
 
       {errors[name] && (
@@ -35,4 +33,4 @@ const TextInput: FC<InputProps> = ({ type, label, register, errors, name, placeh
   )
 }
 
-export default TextInput
+export default TextareaInput
