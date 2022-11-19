@@ -6,12 +6,26 @@ import Title, { titleColors } from '../UI/Title/Title'
 import Like from '../UI/Like/Like'
 import Tag from '../UI/Tag/Tag'
 import AvatarLarge from '../UI/AvatarLarge/AvatarLarge'
+import { IArticle } from '../../models/IArticle'
 
 interface IArticleItemProps {
-  children: string
+  children: IArticle
 }
 
-const ArticleItem: FC<IArticleItemProps> = () => {
+const ArticleItem: FC<IArticleItemProps> = ({ children }) => {
+  const {
+    title,
+    body,
+    author,
+    favorited,
+    favoritesCount,
+    slug,
+    createdAt,
+    tagList,
+    updatedAt,
+    description,
+  } = children
+
   const editBtn = {
     color: ' var(--success-color)',
     border: '1px solid  var(--success-color)',
@@ -20,23 +34,19 @@ const ArticleItem: FC<IArticleItemProps> = () => {
     <div className={styles.card}>
       <div className={styles.header}>
         <div className={styles.headerTop}>
-          <Title color={titleColors.BLUE}>Some article title</Title>
-          <Like favorited={false} favoritesCount={12}></Like>
+          <Title color={titleColors.BLUE}>{title}</Title>
+          <Like favorited={favorited} favoritesCount={favoritesCount}></Like>
         </div>
-        <Tag>SomeTag</Tag>
+        <Tag>{tagList[0]}</Tag>
       </div>
       <div className={styles.cardAuthor}>
         <div className={styles.authorInfo}>
-          <p className={'profileName'}>John Doe</p>
-          <p className={styles.data}>March 5, 2020</p>
+          <p className={'profileName'}>{author.username}</p>
+          <p className={styles.data}>{createdAt}</p>
         </div>
-        <AvatarLarge src={avatar} />
+        <AvatarLarge src={author.image} />
       </div>
-      <div className={styles.text}>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-        labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-        laboris nisi ut aliquip ex ea commodo consequat.
-      </div>
+      <div className={styles.text}>{description}</div>
       <div className={styles.btns}>
         <Popconfirm
           title='Are you sure to delete this article?'
