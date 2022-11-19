@@ -1,29 +1,36 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styles from './Articles.module.scss'
 import { Button, Pagination, Spin } from 'antd'
 // import 'antd/dist/antd.css'
-import ArticleItem from '../../components/ArticleItem/ArticleItem'
+import ArticleCard from '../../components/ArticleCard/ArticleCard'
 
 import { useGetArticlesQuery } from '../../redux'
 import { IArticle } from '../../models/IArticle'
 
 const Articles = () => {
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
-  const { isLoading, data } = useGetArticlesQuery()
+  const [pagPage, setPagPage] = useState<number>(0)
+  const { isLoading, data, error } = useGetArticlesQuery(pagPage * 20)
   console.log(data)
 
   return (
     <>
+      {error && <h1>EROROROROR</h1>}
       {isLoading && <Spin></Spin>}
       {data && (
-        <ul className={styles.list}>
-          {data.articles.map((el: IArticle) => (
-            <ArticleItem key={el.slug}>{el}</ArticleItem>
-          ))}
-        </ul>
+        <>
+          <ul className={styles.list}>
+            {data.articles.map((el: IArticle) => (
+              <ArticleCard showBody={false} key={el.slug} item={el}></ArticleCard>
+            ))}
+          </ul>
+          <Pagination
+            onChange={(page) => setPagPage(page - 1)}
+            pageSize={20}
+            total={data.articlesCount}
+            showSizeChanger={false}
+          />
+        </>
       )}
-      <Pagination />
     </>
   )
 }

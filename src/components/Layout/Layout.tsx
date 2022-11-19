@@ -12,7 +12,7 @@ import { Spin } from 'antd'
 
 const Layout = () => {
   // type NavLinkclassNameType = { isActive: boolean; isPending: boolean }
-  const isAuth = false
+  const isAuth = true
 
   // ==================================================================
   // const [numOfPost, setNumOfPost] = useState('1')

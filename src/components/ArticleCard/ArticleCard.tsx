@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import styles from './ArticleItem.module.scss'
+import styles from './ArticleCard.module.scss'
 import avatar from '../../assets/img/avatar.png'
 import { Avatar, Button, Popconfirm } from 'antd'
 import Title, { titleColors } from '../UI/Title/Title'
@@ -7,12 +7,15 @@ import Like from '../UI/Like/Like'
 import Tag from '../UI/Tag/Tag'
 import AvatarLarge from '../UI/AvatarLarge/AvatarLarge'
 import { IArticle } from '../../models/IArticle'
+import CustomLink from '../CustomLink/CustomLink'
+import ReactMarkdown from 'react-markdown'
 
 interface IArticleItemProps {
-  children: IArticle
+  item: IArticle
+  showBody: boolean
 }
 
-const ArticleItem: FC<IArticleItemProps> = ({ children }) => {
+const ArticleCard: FC<IArticleItemProps> = ({ item, showBody }) => {
   const {
     title,
     body,
@@ -24,25 +27,31 @@ const ArticleItem: FC<IArticleItemProps> = ({ children }) => {
     tagList,
     updatedAt,
     description,
-  } = children
+  } = item
+  const dateArt = new Date(createdAt)
 
   const editBtn = {
     color: ' var(--success-color)',
     border: '1px solid  var(--success-color)',
   }
+
   return (
     <div className={styles.card}>
       <div className={styles.header}>
         <div className={styles.headerTop}>
-          <Title color={titleColors.BLUE}>{title}</Title>
+          <CustomLink to={`/${slug}`}>
+            <Title color={titleColors.BLUE}>{title}</Title>
+          </CustomLink>
           <Like favorited={favorited} favoritesCount={favoritesCount}></Like>
         </div>
-        <Tag>{tagList[0]}</Tag>
+        {tagList && <Tag>{tagList[0]}</Tag>}
       </div>
       <div className={styles.cardAuthor}>
         <div className={styles.authorInfo}>
-          <p className={'profileName'}>{author.username}</p>
-          <p className={styles.data}>{createdAt}</p>
+          <p className={styles.authorName}>{author.username}</p>
+          <p className={styles.data}>{`${dateArt.toLocaleString('default', {
+            month: 'long',
+          })} ${dateArt.getDate()},${dateArt.getFullYear()}`}</p>
         </div>
         <AvatarLarge src={author.image} />
       </div>
@@ -60,8 +69,13 @@ const ArticleItem: FC<IArticleItemProps> = ({ children }) => {
         </Popconfirm>
         <Button style={editBtn}>Edit</Button>
       </div>
+      {showBody && (
+        <div className={styles.body}>
+          <ReactMarkdown>{body}</ReactMarkdown>
+        </div>
+      )}
     </div>
   )
 }
 
-export default ArticleItem
+export default ArticleCard

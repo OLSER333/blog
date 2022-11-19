@@ -9,6 +9,7 @@ import SignInUser from './pages/SignInUser/SignInUser'
 import EditUser from './pages/EditUser/EditUser'
 import EditArticle from './pages/EditArticle/EditArticle'
 import CreateArticle from './pages/CreateArticle/CreateArticle'
+import SingleArticle from './pages/SingleArticle/SingleArticle'
 
 const App = () => {
   // const nested = (
@@ -32,6 +33,7 @@ const App = () => {
       <Routes>
         <Route path={ERoutes.HOME} element={<Layout />}>
           <Route index element={<Articles />} />
+          <Route path={`${ERoutes.HOME}/:slug`} element={<SingleArticle />} />
           <Route path={ERoutes.SIGN_UP} element={<SignUpUser />} />
           <Route path={ERoutes.SIGN_IN} element={<SignInUser />} />
           <Route path={ERoutes.EDIT_USER} element={<EditUser />} />
