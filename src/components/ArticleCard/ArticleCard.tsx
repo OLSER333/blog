@@ -9,6 +9,8 @@ import AvatarLarge from '../UI/AvatarLarge/AvatarLarge'
 import { IArticle } from '../../models/IArticle'
 import CustomLink from '../CustomLink/CustomLink'
 import ReactMarkdown from 'react-markdown'
+import { ERoutes } from '../../routes/routes'
+import { useParams } from 'react-router-dom'
 
 interface IArticleItemProps {
   item: IArticle
@@ -39,7 +41,7 @@ const ArticleCard: FC<IArticleItemProps> = ({ item, showBody }) => {
     <div className={styles.card}>
       <div className={styles.header}>
         <div className={styles.headerTop}>
-          <CustomLink to={`/${slug}`}>
+          <CustomLink to={`${ERoutes.ARTICLES}/${slug}`}>
             <Title color={titleColors.BLUE}>{title}</Title>
           </CustomLink>
           <Like favorited={favorited} favoritesCount={favoritesCount}></Like>

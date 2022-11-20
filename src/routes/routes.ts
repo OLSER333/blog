@@ -8,5 +8,6 @@ export enum ERoutes {
   NEW_ARTICLE = '/new-article',
   EDIT_ARTICLE = '/edit-article',
 
+  OFFSET_ARTICLES = '?offset=',
   ANY = '*',
 }

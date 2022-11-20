@@ -6,12 +6,27 @@ import ArticleCard from '../../components/ArticleCard/ArticleCard'
 
 import { useGetArticlesQuery } from '../../redux'
 import { IArticle } from '../../models/IArticle'
+import { Link, useLocation, useNavigate, useParams } from 'react-router-dom'
 
 const Articles = () => {
-  const [pagPage, setPagPage] = useState<number>(0)
-  const { isLoading, data, error } = useGetArticlesQuery(pagPage * 20)
-  console.log(data)
-
+  const navigate = useNavigate()
+  const location = useLocation()
+  console.log('Articles location', location)
+  // могу вытащить отсюда search 20 и запихнуть в useGetArticlesQuery
+  const [pagPage, setPagPage] = useState<number>(
+    location.search ? Number(location.search.replace(/\D/gi, '')) / 10 : 1,
+  )
+  const { isLoading, data, error } = useGetArticlesQuery((pagPage - 1) * 20)
+  console.log(Number(location.search.replace(/\D/gi, '')))
+  const handlePagination = (page: number) => {
+    console.log('page from pag', page)
+    setPagPage(page)
+    if (page > 1) {
+      navigate(`?offset=${(page - 1) * 20}`)
+    } else {
+      navigate('')
+    }
+  }
   return (
     <>
       {error && <h1>EROROROROR</h1>}
@@ -24,7 +39,8 @@ const Articles = () => {
             ))}
           </ul>
           <Pagination
-            onChange={(page) => setPagPage(page - 1)}
+            current={pagPage}
+            onChange={(page) => handlePagination(page)}
             pageSize={20}
             total={data.articlesCount}
             showSizeChanger={false}
@@ -34,5 +50,4 @@ const Articles = () => {
     </>
   )
 }
-
 export default Articles

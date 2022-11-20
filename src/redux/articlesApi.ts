@@ -1,5 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import { IArticle } from '../models/IArticle'
+import { ERoutes } from '../routes/routes'
 
 export const articlesApi = createApi({
   reducerPath: 'articlesApi',
@@ -7,7 +8,7 @@ export const articlesApi = createApi({
   endpoints: (builder) => ({
     getArticles: builder.query({
       // query: (query) => `articles/${query && `?limit=${query}`}`,
-      query: (query) => `/articles/${query !== 0 ? `?offset=${query}` : ''}`,
+      query: (query) => `/articles/${query !== 0 ? ERoutes.OFFSET_ARTICLES + query : ''}`,
     }),
     getArticle: builder.query({
       query: (slug) => `/articles/${slug !== '' ? slug : ''}`,

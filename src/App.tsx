@@ -1,5 +1,5 @@
 import React from 'react'
-import { Route, Routes } from 'react-router-dom'
+import { Navigate, Route, Routes } from 'react-router-dom'
 import Layout from './components/Layout/Layout'
 import NotFoundPage from './pages/NotFoundPage'
 import Articles from './pages/Articles/Articles'
@@ -32,8 +32,10 @@ const App = () => {
     <>
       <Routes>
         <Route path={ERoutes.HOME} element={<Layout />}>
-          <Route index element={<Articles />} />
-          <Route path={`${ERoutes.HOME}/:slug`} element={<SingleArticle />} />
+          <Route index element={<Navigate to={ERoutes.ARTICLES} replace={true} />} />
+          <Route path={ERoutes.ARTICLES} element={<Articles />} />
+          <Route path={`${ERoutes.ARTICLES}/:slug`} element={<SingleArticle />} />
+          <Route path={`${ERoutes.ARTICLES}/:offset`} element={<Articles />} />
           <Route path={ERoutes.SIGN_UP} element={<SignUpUser />} />
           <Route path={ERoutes.SIGN_IN} element={<SignInUser />} />
           <Route path={ERoutes.EDIT_USER} element={<EditUser />} />
