@@ -14,7 +14,7 @@ const Articles = () => {
   console.log('Articles location', location)
   // могу вытащить отсюда search 20 и запихнуть в useGetArticlesQuery
   const [pagPage, setPagPage] = useState<number>(
-    location.search ? Number(location.search.replace(/\D/gi, '')) / 10 : 1,
+    location.search ? Number(location.search.replace(/\D/gi, '')) / 20 + 1 : 1,
   )
   const { isLoading, data, error } = useGetArticlesQuery((pagPage - 1) * 20)
   console.log(Number(location.search.replace(/\D/gi, '')))
