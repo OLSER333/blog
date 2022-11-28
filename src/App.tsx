@@ -10,6 +10,7 @@ import EditUser from './pages/EditUser/EditUser'
 import EditArticle from './pages/EditArticle/EditArticle'
 import CreateArticle from './pages/CreateArticle/CreateArticle'
 import SingleArticle from './pages/SingleArticle/SingleArticle'
+import RequireAuth from './components/RequireAuth/RequireAuth'
 
 const App = () => {
   // const nested = (
@@ -38,8 +39,22 @@ const App = () => {
           <Route path={`${ERoutes.ARTICLES}/:offset`} element={<Articles />} />
           <Route path={ERoutes.SIGN_UP} element={<SignUpUser />} />
           <Route path={ERoutes.SIGN_IN} element={<SignInUser />} />
-          <Route path={ERoutes.EDIT_USER} element={<EditUser />} />
-          <Route path={ERoutes.NEW_ARTICLE} element={<CreateArticle />} />
+          <Route
+            path={ERoutes.EDIT_USER}
+            element={
+              <RequireAuth>
+                <EditUser />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path={ERoutes.NEW_ARTICLE}
+            element={
+              <RequireAuth>
+                <CreateArticle />
+              </RequireAuth>
+            }
+          />
           <Route path={ERoutes.EDIT_ARTICLE} element={<EditArticle />} />
           {/* <Route path={ERoutes.NEW_USER} element={<SignUpUser />} />*/}
           {/* <Route path={'/works'} element={<Works />} />*/}

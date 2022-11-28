@@ -2,8 +2,6 @@ import React from 'react'
 import styles from './CreateUser.module.scss'
 import FormWindow from '../../components/UI/FormWindow/FormWindow'
 import SignUpForm from '../../components/forms/SignUpForm/SignUpForm'
-import { useGetArticlesQuery } from '../../redux'
-
 // interface ICreateUserProps {}
 // : FC<ICreateUserProps>
 const SignUpUser = () => {

@@ -1,41 +1,47 @@
 import React, { FC } from 'react'
+import styles from './SignUpForm.module.scss'
 import Title, { titleColors } from '../../UI/Title/Title'
 import TextInput from '../../UI/TextInput/TextInput'
-import { EFormInps, Inputs } from '../../UI/FormWindow/FormWindow'
 import { FormErrorsMsg } from '../../../types/FormErrorsMsg'
+import { Divider } from 'antd'
+import CheckBox from '../../UI/CheckBox/CheckBox'
 import SubmitBtn from '../../UI/SubmitBtn/SubmitBtn'
 import { Link } from 'react-router-dom'
 import { ERoutes } from '../../../routes/routes'
+import { EFormInps, Inputs } from '../../UI/FormWindow/FormWindow'
 import { SubmitHandler, useForm } from 'react-hook-form'
-import { IUserSignIn } from '../../../models/IUser'
 
-interface SignInFormProps {
-  onSignIn: (data: IUserSignIn) => void
-}
+// interface SignUpFormProps {
+// }
+// : FC<SignUpFormProps>
 
-const SignInForm: FC<SignInFormProps> = ({ onSignIn }) => {
+const SignUpForm = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
     getValues,
   } = useForm<Inputs>({ mode: 'onTouched' })
-
   const onSubmit: SubmitHandler<Inputs> = (data) => {
-    const forSignIn = {
-      user: {
-        email: data[EFormInps.EMAIL],
-        password: data[EFormInps.PASSWORD],
-      },
-    }
-    console.log('sign in data', forSignIn)
-    onSignIn(forSignIn)
+    console.log(data)
   }
 
   return (
     <>
-      <Title color={titleColors.BLACK}>Sign In</Title>
+      <Title color={titleColors.BLACK}>Create new account</Title>
       <form className={'authForm'} onSubmit={handleSubmit(onSubmit)}>
+        <TextInput
+          register={register(EFormInps.USERNAME, {
+            required: true,
+            validate: (value) =>
+              value.length > 2 && value.length < 21 ? true : FormErrorsMsg.from3to20,
+          })}
+          type={'text'}
+          label={'Username'}
+          errors={errors}
+          name={EFormInps.USERNAME}
+          placeholder={'Username'}
+        />
         <TextInput
           register={register(EFormInps.EMAIL, {
             required: true,
@@ -65,14 +71,34 @@ const SignInForm: FC<SignInFormProps> = ({ onSignIn }) => {
           name={EFormInps.PASSWORD}
           placeholder={'Password'}
         />
-
-        <SubmitBtn>Login</SubmitBtn>
+        <TextInput
+          register={register(EFormInps.CONFIRM_PASSWORD, {
+            required: true,
+            validate: (value) =>
+              value === String(getValues()[EFormInps.PASSWORD]) ? true : FormErrorsMsg.confirmPass,
+          })}
+          type={'password'}
+          label={'Repeat password'}
+          errors={errors}
+          name={EFormInps.CONFIRM_PASSWORD}
+          placeholder={'Password'}
+        />
+        <Divider style={{ margin: 0 }} />
+        <CheckBox
+          errors={errors}
+          label={'I agree to the processing of my personal information'}
+          register={register(EFormInps.AGREEMENT, {
+            required: FormErrorsMsg.agreement,
+          })}
+          name={EFormInps.AGREEMENT}
+        />
+        <SubmitBtn>Create</SubmitBtn>
       </form>
       <span className={'formAgreement'}>
-        Don’t have an account? <Link to={ERoutes.SIGN_UP}>Sign Up.</Link>
+        Already have an account? <Link to={ERoutes.SIGN_IN}>Sign In.</Link>
       </span>
     </>
   )
 }
 
-export default SignInForm
+export default SignUpForm

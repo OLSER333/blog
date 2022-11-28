@@ -8,12 +8,13 @@ import Title, { titleColors } from '../UI/Title/Title'
 import { ERoutes } from '../../routes/routes'
 import AvatarLarge from '../UI/AvatarLarge/AvatarLarge'
 import { Spin } from 'antd'
+import { isValidToken } from '../../utils/tokenLogic'
 // import { Ipost, useGetPostsQuery } from '../../redux'
 
 const Layout = () => {
   // type NavLinkclassNameType = { isActive: boolean; isPending: boolean }
-  const isAuth = true
-
+  const isAuth = isValidToken()
+  console.log('isValid:', isAuth)
   // ==================================================================
   // const [numOfPost, setNumOfPost] = useState('1')
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -31,6 +32,10 @@ const Layout = () => {
           </div>
           {!isAuth && (
             <div className={styles.singLinks}>
+              {/* // delete*/}
+              <CustomLink to={ERoutes.NEW_ARTICLE} customClass={customLinksClasses.USUAL}>
+                NEW_ARTICLE
+              </CustomLink>
               <CustomLink to={ERoutes.SIGN_IN} customClass={customLinksClasses.USUAL}>
                 Sign In
               </CustomLink>
@@ -41,9 +46,6 @@ const Layout = () => {
           )}
           {isAuth && (
             <div className={styles.singLinks}>
-              <CustomLink to={ERoutes.EDIT_ARTICLE} customClass={customLinksClasses.GREEN_SMALL}>
-                EDIT article
-              </CustomLink>
               <CustomLink to={ERoutes.NEW_ARTICLE} customClass={customLinksClasses.GREEN_SMALL}>
                 Create article
               </CustomLink>

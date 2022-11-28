@@ -69,7 +69,9 @@ const ArticleCard: FC<IArticleItemProps> = ({ item, showBody }) => {
             Delete
           </Button>
         </Popconfirm>
-        <Button style={editBtn}>Edit</Button>
+        <CustomLink to={ERoutes.EDIT_ARTICLE}>
+          <Button style={editBtn}>Edit</Button>
+        </CustomLink>
       </div>
       {showBody && (
         <div className={styles.body}>
