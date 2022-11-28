@@ -1,4 +1,4 @@
-const TOKEN = 'blog_user_token'
+export const TOKEN = 'blog_user_token'
 
 export function setToken(newToken: any) {
   sessionStorage.setItem(TOKEN, newToken)
