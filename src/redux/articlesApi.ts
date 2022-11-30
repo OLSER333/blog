@@ -5,12 +5,19 @@ import { ERoutes } from '../routes/routes'
 export const articlesApi = createApi({
   reducerPath: 'articlesApi',
   baseQuery: fetchBaseQuery({ baseUrl: 'https://blog.kata.academy/api' }),
-  endpoints: (builder) => ({
-    getArticles: builder.query({
+  endpoints: (build) => ({
+    getArticles: build.query({
       // query: (query) => `articles/${query && `?limit=${query}`}`,
-      query: (query) => `/articles/${query !== 0 ? ERoutes.OFFSET_ARTICLES + query : ''}`,
+      query: ({ limit = 5, page = 1 }) => ({
+        url: '/articles/',
+        params: {
+          limit,
+          offset: (page - 1) * limit,
+        },
+      }),
     }),
-    getArticle: builder.query({
+
+    getArticle: build.query({
       query: (slug) => `/articles/${slug !== '' ? slug : ''}`,
     }),
   }),

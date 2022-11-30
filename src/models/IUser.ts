@@ -5,15 +5,17 @@ export interface IUserSignIn {
   }
 }
 
+export interface IUser {
+  email: string
+  username: string
+  token: string
+  bio?: 'string'
+  image?: 'string'
+}
+
 export interface IUserSignInResponce {
   data: {
-    user: {
-      email: string
-      username: string
-      token: string
-      bio?: 'string'
-      image?: 'string'
-    }
+    user: IUser
   }
 }
 export type IUserSignInRequest = (dataForSign: IUserSignIn) => IUserSignInResponce

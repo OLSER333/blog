@@ -4,16 +4,18 @@ import TextInput from '../../UI/TextInput/TextInput'
 import { EFormInps, Inputs } from '../../UI/FormWindow/FormWindow'
 import { FormErrorsMsg } from '../../../types/FormErrorsMsg'
 import SubmitBtn from '../../UI/SubmitBtn/SubmitBtn'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { ERoutes } from '../../../routes/routes'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { IUserSignIn } from '../../../models/IUser'
+import { useSignInMutation } from '../../../redux/userApi'
 
 interface SignInFormProps {
   onSignIn: (data: IUserSignIn) => void
 }
 
 const SignInForm: FC<SignInFormProps> = ({ onSignIn }) => {
+  const navigate = useNavigate()
   const {
     register,
     handleSubmit,
@@ -30,6 +32,7 @@ const SignInForm: FC<SignInFormProps> = ({ onSignIn }) => {
     }
     console.log('sign in data', forSignIn)
     onSignIn(forSignIn)
+    navigate(ERoutes.ARTICLES)
   }
 
   return (

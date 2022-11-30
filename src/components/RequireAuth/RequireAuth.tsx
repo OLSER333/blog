@@ -5,6 +5,7 @@ import { Navigate, useLocation } from 'react-router-dom'
 import { ERoutes } from '../../routes/routes'
 import { isValidToken } from '../../utils/tokenLogic'
 import { useGetUserQuery } from '../../redux/userApi'
+import { useStorageWatch } from '../../hooks/useStorageWatch'
 
 interface RequireAuthProps {
   children: AnyForChanging
@@ -14,6 +15,7 @@ const RequireAuth: FC<RequireAuthProps> = ({ children }) => {
   // const { data, error } = useGetUserQuery()
   // if (!error) {
   // }
+  useStorageWatch('lkj')
 
   const location = useLocation()
   if (!isValidToken()) {

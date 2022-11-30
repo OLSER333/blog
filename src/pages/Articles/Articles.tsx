@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from './Articles.module.scss'
 import { Button, Pagination, Spin } from 'antd'
 // import 'antd/dist/antd.css'
@@ -11,22 +11,33 @@ import { Link, useLocation, useNavigate, useParams } from 'react-router-dom'
 const Articles = () => {
   const navigate = useNavigate()
   const location = useLocation()
-  console.log('Articles location', location)
+  // console.log('Articles location', location)
   // могу вытащить отсюда search 20 и запихнуть в useGetArticlesQuery
-  const [pagPage, setPagPage] = useState<number>(
-    location.search ? Number(location.search.replace(/\D/gi, '')) / 20 + 1 : 1,
-  )
-  const { isLoading, data, error } = useGetArticlesQuery((pagPage - 1) * 20)
-  console.log(Number(location.search.replace(/\D/gi, '')))
-  const handlePagination = (page: number) => {
-    console.log('page from pag', page)
-    setPagPage(page)
-    if (page > 1) {
-      navigate(`?offset=${(page - 1) * 20}`)
-    } else {
-      navigate('')
-    }
-  }
+  // const [page, setPagPage] = useState<number>(
+  //   location.search ? Number(location.search.replace(/\D/gi, '')) / 20 + 1 : 1,
+  // )
+  const [page, setPage] = useState(0)
+  const limit = 10
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  const { isLoading, data, error } = useGetArticlesQuery(page, limit)
+  // useEffect(() => {
+  //   getArticles(page, limit)
+  // }, [page])
+  //
+  //
+
+  // console.log(Number(location.search.replace(/\D/gi, '')))
+
+  // const handlePagination = (page: number) => {
+  //   console.log('page from pag', page)
+  //   setPagPage(page)
+  //   if (page > 1) {
+  //     navigate(`?offset=${(page - 1) * 20}`)
+  //   } else {
+  //     navigate('')
+  //   }
+  // }
   return (
     <>
       {error && <h1>EROROROROR</h1>}
@@ -39,9 +50,9 @@ const Articles = () => {
             ))}
           </ul>
           <Pagination
-            current={pagPage}
-            onChange={(page) => handlePagination(page)}
-            pageSize={20}
+            current={page}
+            onChange={(page) => setPage(page)}
+            pageSize={10}
             total={data.articlesCount}
             showSizeChanger={false}
           />

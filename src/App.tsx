@@ -11,6 +11,8 @@ import EditArticle from './pages/EditArticle/EditArticle'
 import CreateArticle from './pages/CreateArticle/CreateArticle'
 import SingleArticle from './pages/SingleArticle/SingleArticle'
 import RequireAuth from './components/RequireAuth/RequireAuth'
+import { useStorageWatch } from './hooks/useStorageWatch'
+import { TOKEN } from './utils/tokenLogic'
 
 const App = () => {
   // const nested = (
@@ -28,6 +30,7 @@ const App = () => {
   //     <Route path={ERoutes.ANY} element={<NotFoundPage />} />
   //   </Routes>
   // )
+  // useStorageWatch(TOKEN)
 
   return (
     <>
@@ -39,6 +42,7 @@ const App = () => {
           <Route path={`${ERoutes.ARTICLES}/:offset`} element={<Articles />} />
           <Route path={ERoutes.SIGN_UP} element={<SignUpUser />} />
           <Route path={ERoutes.SIGN_IN} element={<SignInUser />} />
+
           <Route
             path={ERoutes.EDIT_USER}
             element={
@@ -47,6 +51,7 @@ const App = () => {
               </RequireAuth>
             }
           />
+
           <Route
             path={ERoutes.NEW_ARTICLE}
             element={

@@ -8,18 +8,33 @@ import Title, { titleColors } from '../UI/Title/Title'
 import { ERoutes } from '../../routes/routes'
 import AvatarLarge from '../UI/AvatarLarge/AvatarLarge'
 import { Spin } from 'antd'
-import { isValidToken } from '../../utils/tokenLogic'
+import { delToken, isValidToken, TOKEN } from '../../utils/tokenLogic'
+import { useStorageWatch } from '../../hooks/useStorageWatch'
+import { useAppDispatch, useAppSelector } from '../../redux'
+import { loginUser, logoutUser } from '../../redux/authSlice'
 // import { Ipost, useGetPostsQuery } from '../../redux'
 
 const Layout = () => {
+  const dispatch = useAppDispatch()
+  // useStorageWatch(TOKEN)
   // type NavLinkclassNameType = { isActive: boolean; isPending: boolean }
-  const isAuth = isValidToken()
-  console.log('isValid:', isAuth)
+  // const isAuth = isValidToken()
+  // const [isAuth, setIsAtuh] = useState(isValidToken())
+
+  const { isAuth } = useAppSelector((state) => state.authSlice)
+
+  // console.log('isValid:', isAuth)
   // ==================================================================
   // const [numOfPost, setNumOfPost] = useState('1')
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   // const { data = [], isLoading } = useGetPostsQuery(numOfPost)
+
+  function logoutWithRedirect() {
+    console.log('i here')
+    dispatch(logoutUser())
+    delToken()
+  }
 
   return (
     <div className={styles.container}>
@@ -55,7 +70,11 @@ const Layout = () => {
                   <AvatarLarge src={avatar}></AvatarLarge>
                 </div>
               </CustomLink>
-              <CustomLink to={ERoutes.HOME} customClass={customLinksClasses.BLACK_BIG}>
+              <CustomLink
+                customLogic={() => logoutWithRedirect()}
+                to={ERoutes.HOME}
+                customClass={customLinksClasses.BLACK_BIG}
+              >
                 Log Out
               </CustomLink>
             </div>
