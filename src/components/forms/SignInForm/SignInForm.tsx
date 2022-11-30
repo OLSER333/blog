@@ -15,15 +15,15 @@ interface SignInFormProps {
 }
 
 const SignInForm: FC<SignInFormProps> = ({ onSignIn }) => {
-  const navigate = useNavigate()
   const {
     register,
     handleSubmit,
     formState: { errors },
+    setError,
     getValues,
   } = useForm<Inputs>({ mode: 'onTouched' })
 
-  const onSubmit: SubmitHandler<Inputs> = (data) => {
+  const onSubmit: SubmitHandler<Inputs> = async (data) => {
     const forSignIn = {
       user: {
         email: data[EFormInps.EMAIL],
@@ -31,8 +31,7 @@ const SignInForm: FC<SignInFormProps> = ({ onSignIn }) => {
       },
     }
     console.log('sign in data', forSignIn)
-    onSignIn(forSignIn)
-    navigate(ERoutes.ARTICLES)
+    console.log(await onSignIn(forSignIn))
   }
 
   return (

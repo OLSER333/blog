@@ -14,9 +14,7 @@ export interface IUser {
 }
 
 export interface IUserSignInResponce {
-  data: {
-    user: IUser
-  }
+  user: IUser
 }
 export type IUserSignInRequest = (dataForSign: IUserSignIn) => IUserSignInResponce
 export interface IResponceError {

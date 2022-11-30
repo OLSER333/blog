@@ -5,6 +5,7 @@ import { isValidToken } from '../utils/tokenLogic'
 interface ISlice {
   isAuth: boolean
   curArticlesPage: number
+  signInError: boolean
 }
 
 const initialState: ISlice = {
@@ -14,6 +15,7 @@ const initialState: ISlice = {
   // bio: '' | undefined,
   // image: '',
   isAuth: isValidToken(),
+  signInError: false,
   curArticlesPage: 1,
 }
 
@@ -31,6 +33,10 @@ export const commonSlice = createSlice({
 
     setCurArticlesPage: (state, action: PayloadAction<number>) => {
       state.curArticlesPage = action.payload
+    },
+
+    setSignInError: (state, action: PayloadAction<boolean>) => {
+      state.signInError = action.payload
     },
   },
 })

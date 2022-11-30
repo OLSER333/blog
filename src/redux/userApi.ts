@@ -3,6 +3,7 @@ import { IArticle } from '../models/IArticle'
 import { ERoutes } from '../routes/routes'
 import { IResponceError, IUserSignIn, IUserSignInResponce } from '../models/IUser'
 import { getToken } from '../utils/tokenLogic'
+// import { IError } from '../models/IError'
 
 export const userApi = createApi({
   reducerPath: 'userApi',
@@ -16,6 +17,7 @@ export const userApi = createApi({
         body,
       }),
     }),
+    // IError
     signIn: builder.mutation<IUserSignInResponce, IUserSignIn>({
       // query: (query) => `articles/${query && `?limit=${query}`}`,
       query: (body) => ({
