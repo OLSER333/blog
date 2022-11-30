@@ -2,22 +2,24 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { isValidToken } from '../utils/tokenLogic'
 // import { IUser } from '../api/types';
 
-interface IAuth {
+interface ISlice {
   isAuth: boolean
+  curArticlesPage: number
 }
 
-const initialState: IAuth = {
+const initialState: ISlice = {
   // email: '',
   // username: '',
   // token: '',
   // bio: '' | undefined,
   // image: '',
   isAuth: isValidToken(),
+  curArticlesPage: 1,
 }
 
-export const userSlice = createSlice({
+export const commonSlice = createSlice({
   initialState,
-  name: 'userSlice',
+  name: 'commonSlice',
   reducers: {
     logoutUser: (state) => {
       state.isAuth = false
@@ -26,9 +28,13 @@ export const userSlice = createSlice({
       // action: PayloadAction<boolean>
       state.isAuth = true
     },
+
+    setCurArticlesPage: (state, action: PayloadAction<number>) => {
+      state.curArticlesPage = action.payload
+    },
   },
 })
 
-export default userSlice.reducer
+export default commonSlice.reducer
 
-export const { logoutUser, loginUser } = userSlice.actions
+export const { logoutUser, loginUser, setCurArticlesPage } = commonSlice.actions

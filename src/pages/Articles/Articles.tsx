@@ -4,11 +4,14 @@ import { Button, Pagination, Spin } from 'antd'
 // import 'antd/dist/antd.css'
 import ArticleCard from '../../components/ArticleCard/ArticleCard'
 
-import { useGetArticlesQuery } from '../../redux'
+import { useAppDispatch, useAppSelector, useGetArticlesQuery } from '../../redux'
 import { IArticle } from '../../models/IArticle'
 import { Link, useLocation, useNavigate, useParams } from 'react-router-dom'
+import { setCurArticlesPage } from '../../redux/commonSlice'
 
 const Articles = () => {
+  const dispatch = useAppDispatch()
+  const { curArticlesPage } = useAppSelector((state) => state.commonSlice)
   const navigate = useNavigate()
   const location = useLocation()
   // console.log('Articles location', location)
@@ -16,11 +19,19 @@ const Articles = () => {
   // const [page, setPagPage] = useState<number>(
   //   location.search ? Number(location.search.replace(/\D/gi, '')) / 20 + 1 : 1,
   // )
-  const [page, setPage] = useState(0)
+  const [page, setPage] = useState(curArticlesPage)
   const limit = 10
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
-  const { isLoading, data, error } = useGetArticlesQuery(page, limit)
+  const { isLoading, data, error } = useGetArticlesQuery(
+    { page, limit },
+    // { refetchOnMountOrArgChange: true },
+  )
+
+  const onPageChange = (page: number) => {
+    setPage(page)
+    dispatch(setCurArticlesPage(page))
+  }
   // useEffect(() => {
   //   getArticles(page, limit)
   // }, [page])
@@ -51,7 +62,7 @@ const Articles = () => {
           </ul>
           <Pagination
             current={page}
-            onChange={(page) => setPage(page)}
+            onChange={(page) => onPageChange(page)}
             pageSize={10}
             total={data.articlesCount}
             showSizeChanger={false}

@@ -11,7 +11,7 @@ import { Spin } from 'antd'
 import { delToken, isValidToken, TOKEN } from '../../utils/tokenLogic'
 import { useStorageWatch } from '../../hooks/useStorageWatch'
 import { useAppDispatch, useAppSelector } from '../../redux'
-import { loginUser, logoutUser } from '../../redux/authSlice'
+import { loginUser, logoutUser } from '../../redux/commonSlice'
 // import { Ipost, useGetPostsQuery } from '../../redux'
 
 const Layout = () => {
@@ -21,7 +21,7 @@ const Layout = () => {
   // const isAuth = isValidToken()
   // const [isAuth, setIsAtuh] = useState(isValidToken())
 
-  const { isAuth } = useAppSelector((state) => state.authSlice)
+  const { isAuth } = useAppSelector((state) => state.commonSlice)
 
   // console.log('isValid:', isAuth)
   // ==================================================================
@@ -31,7 +31,7 @@ const Layout = () => {
   // const { data = [], isLoading } = useGetPostsQuery(numOfPost)
 
   function logoutWithRedirect() {
-    console.log('i here')
+    console.log('logout yoг ')
     dispatch(logoutUser())
     delToken()
   }

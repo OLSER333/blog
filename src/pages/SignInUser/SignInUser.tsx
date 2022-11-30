@@ -8,7 +8,7 @@ import { IUserSignIn, IUserSignInResponce } from '../../models/IUser'
 import { useSignInMutation } from '../../redux/userApi'
 import { setToken } from '../../utils/tokenLogic'
 import { useAppDispatch } from '../../redux'
-import { loginUser } from '../../redux/authSlice'
+import { loginUser } from '../../redux/commonSlice'
 const SignInUser = () => {
   const dispatch = useAppDispatch()
   const [signIn, { data }] = useSignInMutation()
