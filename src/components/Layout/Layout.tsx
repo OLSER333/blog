@@ -21,7 +21,7 @@ const Layout = () => {
   // const isAuth = isValidToken()
   // const [isAuth, setIsAtuh] = useState(isValidToken())
 
-  const { isAuth } = useAppSelector((state) => state.commonSlice)
+  const { userData } = useAppSelector((state) => state.commonSlice)
 
   // console.log('isValid:', isAuth)
   // ==================================================================
@@ -32,8 +32,8 @@ const Layout = () => {
 
   function logoutWithRedirect() {
     console.log('logout yoг ')
-    dispatch(logoutUser())
     delToken()
+    dispatch(logoutUser())
   }
 
   return (
@@ -45,7 +45,7 @@ const Layout = () => {
               <h2 className={styles.navLogo}>Realworld Blog</h2>
             </CustomLink>
           </div>
-          {!isAuth && (
+          {!userData.token && (
             <div className={styles.singLinks}>
               <CustomLink to={ERoutes.SIGN_IN} customClass={customLinksClasses.USUAL}>
                 Sign In
@@ -55,15 +55,15 @@ const Layout = () => {
               </CustomLink>
             </div>
           )}
-          {isAuth && (
+          {userData.token && (
             <div className={styles.singLinks}>
               <CustomLink to={ERoutes.NEW_ARTICLE} customClass={customLinksClasses.GREEN_SMALL}>
                 Create article
               </CustomLink>
               <CustomLink to={ERoutes.EDIT_USER}>
                 <div className={styles.profileInfo}>
-                  <p className={'profileName'}>John Doe</p>
-                  <AvatarLarge src={avatar}></AvatarLarge>
+                  <p className={'profileName'}>{userData.username}</p>
+                  <AvatarLarge src={userData.image ? userData.image : avatar}></AvatarLarge>
                 </div>
               </CustomLink>
               <CustomLink

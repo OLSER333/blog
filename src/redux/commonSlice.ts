@@ -1,11 +1,13 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { isValidToken } from '../utils/tokenLogic'
+import { getToken, isValidToken } from '../utils/tokenLogic'
+import { IUser } from '../models/IUser'
 // import { IUser } from '../api/types';
 
 interface ISlice {
-  isAuth: boolean
+  // isAuth: boolean
+  // signInError: boolean
   curArticlesPage: number
-  signInError: boolean
+  userData: IUser
 }
 
 const initialState: ISlice = {
@@ -14,9 +16,15 @@ const initialState: ISlice = {
   // token: '',
   // bio: '' | undefined,
   // image: '',
-  isAuth: isValidToken(),
-  signInError: false,
+  // signInError: false,
   curArticlesPage: 1,
+  userData: {
+    email: null,
+    image: null,
+    bio: null,
+    token: getToken() ? getToken() : null,
+    username: null,
+  },
 }
 
 export const commonSlice = createSlice({
@@ -24,20 +32,20 @@ export const commonSlice = createSlice({
   name: 'commonSlice',
   reducers: {
     logoutUser: (state) => {
-      state.isAuth = false
+      state.userData = initialState.userData
     },
-    loginUser: (state) => {
+    loginUser: (state, action: PayloadAction<IUser>) => {
       // action: PayloadAction<boolean>
-      state.isAuth = true
+      state.userData = action.payload
     },
 
     setCurArticlesPage: (state, action: PayloadAction<number>) => {
       state.curArticlesPage = action.payload
     },
 
-    setSignInError: (state, action: PayloadAction<boolean>) => {
-      state.signInError = action.payload
-    },
+    // setSignInError: (state, action: PayloadAction<boolean>) => {
+    //   state.signInError = action.payload
+    // },
   },
 })
 

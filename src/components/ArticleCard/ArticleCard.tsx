@@ -13,6 +13,7 @@ import { ERoutes } from '../../routes/routes'
 import { useParams } from 'react-router-dom'
 import { IProfile } from '../../models/IProfile'
 import { v4 } from 'uuid'
+import { useAppSelector } from '../../redux'
 
 interface IArticleItemProps {
   item: IArticleWithoutWrap
@@ -20,6 +21,7 @@ interface IArticleItemProps {
 }
 
 const ArticleCard: FC<IArticleItemProps> = ({ item, showBody }) => {
+  const { userData } = useAppSelector((state) => state.commonSlice)
   const {
     title,
     body,
@@ -62,21 +64,23 @@ const ArticleCard: FC<IArticleItemProps> = ({ item, showBody }) => {
         <AvatarLarge src={author.image} />
       </div>
       <div className={styles.text}>{description}</div>
-      <div className={styles.btns}>
-        <Popconfirm
-          title='Are you sure to delete this article?'
-          okText='Yes'
-          cancelText='No'
-          placement={'right'}
-        >
-          <Button ghost danger>
-            Delete
-          </Button>
-        </Popconfirm>
-        <CustomLink to={ERoutes.EDIT_ARTICLE}>
-          <Button style={editBtn}>Edit</Button>
-        </CustomLink>
-      </div>
+      {showBody && author.username === userData.username && (
+        <div className={styles.btns}>
+          <Popconfirm
+            title='Are you sure to delete this article?'
+            okText='Yes'
+            cancelText='No'
+            placement={'right'}
+          >
+            <Button ghost danger>
+              Delete
+            </Button>
+          </Popconfirm>
+          <CustomLink to={ERoutes.EDIT_ARTICLE}>
+            <Button style={editBtn}>Edit</Button>
+          </CustomLink>
+        </div>
+      )}
       {showBody && (
         <div className={styles.body}>
           <ReactMarkdown>{body}</ReactMarkdown>

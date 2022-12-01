@@ -6,11 +6,11 @@ export interface IUserSignIn {
 }
 
 export interface IUser {
-  email: string
-  username: string
-  token: string
-  bio?: 'string'
-  image?: 'string'
+  email: string | null
+  username: string | null
+  token: string | null
+  bio?: string | null
+  image?: string | null
 }
 
 export interface IUserSignInResponce {
@@ -19,6 +19,6 @@ export interface IUserSignInResponce {
 export type IUserSignInRequest = (dataForSign: IUserSignIn) => IUserSignInResponce
 export interface IResponceError {
   errors: {
-    body: ['string']
+    body: string[]
   }
 }

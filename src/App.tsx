@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Navigate, Route, Routes } from 'react-router-dom'
 import Layout from './components/Layout/Layout'
 import NotFoundPage from './pages/NotFoundPage'
@@ -11,8 +11,11 @@ import EditArticle from './pages/EditArticle/EditArticle'
 import CreateArticle from './pages/CreateArticle/CreateArticle'
 import SingleArticle from './pages/SingleArticle/SingleArticle'
 import RequireAuth from './components/RequireAuth/RequireAuth'
-import { useStorageWatch } from './hooks/useStorageWatch'
-import { TOKEN } from './utils/tokenLogic'
+import { useAppDispatch } from './redux'
+import { useLazyGetUserQuery } from './redux/userApi'
+import { getToken } from './utils/tokenLogic'
+import { loginUser } from './redux/commonSlice'
+import { IUser, IUserSignInResponce } from './models/IUser'
 
 const App = () => {
   // const nested = (
@@ -31,6 +34,24 @@ const App = () => {
   //   </Routes>
   // )
   // useStorageWatch(TOKEN)
+
+  // 158 40 Asdrtyop+912
+
+  const [getUser, { data }] = useLazyGetUserQuery()
+  const dispatch = useAppDispatch()
+  useEffect(() => {
+    if (getToken()) {
+      getUser(null, true)
+        .unwrap()
+        .then((curUser) => {
+          console.log(curUser)
+          if (curUser) {
+            dispatch(loginUser(curUser.user))
+          }
+        })
+    }
+    // dispatch(loginUser())
+  }, [])
 
   return (
     <>

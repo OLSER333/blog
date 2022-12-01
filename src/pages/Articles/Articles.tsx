@@ -32,7 +32,11 @@ const Articles = () => {
     getArticles({ page, limit }, true)
   }, [])
   useEffect(() => {
-    getArticles({ page, limit }, true)
+    if (page === 1) {
+      getArticles({ page, limit })
+    } else {
+      getArticles({ page, limit }, true)
+    }
   }, [page])
   //
   //

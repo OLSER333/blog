@@ -25,7 +25,7 @@ export const userApi = baseApi.injectEndpoints({
         body,
       }),
     }),
-    getUser: builder.query<IUserSignInResponce | IResponceError, any>({
+    getUser: builder.query<IUserSignInResponce, null>({
       query: () => ({
         url: '/user',
         headers: { Authorization: `Bearer ${getToken()}` },
@@ -34,4 +34,5 @@ export const userApi = baseApi.injectEndpoints({
   }),
 })
 
-export const { useSignUpMutation, useSignInMutation, useGetUserQuery } = userApi
+export const { useSignUpMutation, useSignInMutation, useGetUserQuery, useLazyGetUserQuery } =
+  userApi

@@ -19,7 +19,7 @@ const SignInUser = () => {
     if (isSuccess) {
       if (data) {
         setToken(data.user.token)
-        dispatch(loginUser())
+        dispatch(loginUser(data.user))
         navigate(ERoutes.ARTICLES)
       }
     }
