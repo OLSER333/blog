@@ -10,9 +10,9 @@ export enum EFormInps {
   AGREEMENT = 'Agreement',
   AVATAR_PATH = 'Avatar image (url)',
   // below - article
-  ART_TITLE = 'article-title',
-  ART_SHORT_DESCR = 'article-short-descr',
-  ART_TEXT = 'art-text',
+  ART_TITLE = 'title',
+  ART_SHORT_DESCR = 'description',
+  ART_TEXT = 'body',
 }
 
 export type Inputs = {

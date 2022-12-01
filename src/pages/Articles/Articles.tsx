@@ -1,19 +1,19 @@
 import React, { useEffect, useState } from 'react'
 import styles from './Articles.module.scss'
-import { Button, Pagination, Spin } from 'antd'
+import { Alert, Button, Pagination, Spin } from 'antd'
 // import 'antd/dist/antd.css'
 import ArticleCard from '../../components/ArticleCard/ArticleCard'
 
-import { useAppDispatch, useAppSelector, useGetArticlesQuery } from '../../redux'
-import { IArticle } from '../../models/IArticle'
-import { Link, useLocation, useNavigate, useParams } from 'react-router-dom'
+import { useAppDispatch, useAppSelector, useLazyGetArticlesQuery } from '../../redux'
+// import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import { setCurArticlesPage } from '../../redux/commonSlice'
+import ErrorAlert from '../../components/UI/ErrorAlert/ErrorAlert'
 
 const Articles = () => {
   const dispatch = useAppDispatch()
   const { curArticlesPage } = useAppSelector((state) => state.commonSlice)
-  const navigate = useNavigate()
-  const location = useLocation()
+  // const navigate = useNavigate()
+  // const location = useLocation()
   // console.log('Articles location', location)
   // могу вытащить отсюда search 20 и запихнуть в useGetArticlesQuery
   // const [page, setPagPage] = useState<number>(
@@ -21,20 +21,19 @@ const Articles = () => {
   // )
   const [page, setPage] = useState(curArticlesPage)
   const limit = 10
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
-  const { isLoading, data, error } = useGetArticlesQuery(
-    { page, limit },
-    // { refetchOnMountOrArgChange: true },
-  )
+
+  const [getArticles, { isLoading, data, error }] = useLazyGetArticlesQuery()
 
   const onPageChange = (page: number) => {
     setPage(page)
     dispatch(setCurArticlesPage(page))
   }
-  // useEffect(() => {
-  //   getArticles(page, limit)
-  // }, [page])
+  useEffect(() => {
+    getArticles({ page, limit }, true)
+  }, [])
+  useEffect(() => {
+    getArticles({ page, limit }, true)
+  }, [page])
   //
   //
 
@@ -49,15 +48,17 @@ const Articles = () => {
   //     navigate('')
   //   }
   // }
+
   return (
     <>
-      {error && <h1>EROROROROR</h1>}
+      {/* eslint-disable-next-line*/}
+      {error && <ErrorAlert>{"Can't load articles"}</ErrorAlert>}
       {isLoading && <Spin></Spin>}
       {data && (
         <>
           <ul className={styles.list}>
-            {data.articles.map((el: IArticle) => (
-              <ArticleCard showBody={false} key={el.slug} item={el}></ArticleCard>
+            {data.articles.map((article) => (
+              <ArticleCard showBody={false} key={article.slug} item={article}></ArticleCard>
             ))}
           </ul>
           <Pagination

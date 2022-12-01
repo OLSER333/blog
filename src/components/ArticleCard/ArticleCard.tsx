@@ -6,14 +6,16 @@ import Title, { titleColors } from '../UI/Title/Title'
 import Like from '../UI/Like/Like'
 import Tag from '../UI/Tag/Tag'
 import AvatarLarge from '../UI/AvatarLarge/AvatarLarge'
-import { IArticle } from '../../models/IArticle'
+import { IArticle, IArticleWithoutWrap } from '../../models/IArticle'
 import CustomLink from '../CustomLink/CustomLink'
 import ReactMarkdown from 'react-markdown'
 import { ERoutes } from '../../routes/routes'
 import { useParams } from 'react-router-dom'
+import { IProfile } from '../../models/IProfile'
+import { v4 } from 'uuid'
 
 interface IArticleItemProps {
-  item: IArticle
+  item: IArticleWithoutWrap
   showBody: boolean
 }
 
@@ -46,7 +48,9 @@ const ArticleCard: FC<IArticleItemProps> = ({ item, showBody }) => {
           </CustomLink>
           <Like favorited={favorited} favoritesCount={favoritesCount}></Like>
         </div>
-        {tagList && <Tag>{tagList[0]}</Tag>}
+        <ul className={styles.tagList}>
+          {tagList && tagList.map((tag) => <Tag key={v4()}>{tag}</Tag>)}
+        </ul>
       </div>
       <div className={styles.cardAuthor}>
         <div className={styles.authorInfo}>

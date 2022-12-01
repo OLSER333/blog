@@ -89,3 +89,9 @@
   flex-direction: column;
   gap: 15px ;
 }
+
+.tagList {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}

@@ -1,12 +1,16 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-import { IArticle } from '../models/IArticle'
-import { ERoutes } from '../routes/routes'
+import { IArticle, IArticlesForRender, IArticleToCreate } from '../models/IArticle'
+import { getToken } from '../utils/tokenLogic'
+import { baseApi } from './api'
 
-export const articlesApi = createApi({
-  reducerPath: 'articlesApi',
-  baseQuery: fetchBaseQuery({ baseUrl: 'https://blog.kata.academy/api' }),
+export interface getArticlesProps {
+  limit: number
+  page: number
+}
+
+export const articlesApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
-    getArticles: build.query({
+    getArticles: build.query<IArticlesForRender, getArticlesProps>({
       // query: (query) => `articles/${query && `?limit=${query}`}`,
       query: ({ limit = 5, page = 1 }) => ({
         url: '/articles/',
@@ -17,10 +21,34 @@ export const articlesApi = createApi({
       }),
     }),
 
-    getArticle: build.query({
+    getArticle: build.query<IArticle, string>({
       query: (slug) => `/articles/${slug !== '' ? slug : ''}`,
+    }),
+    postArticle: build.mutation<IArticle, IArticleToCreate>({
+      query: (body) => ({
+        method: 'post',
+        url: '/articles/',
+        body,
+        headers: {
+          Authorization: `Bearer ${getToken()}`,
+        },
+      }),
+    }),
+    delArticle: build.query<any, string>({
+      query: (slug) => ({
+        url: `/articles/${slug}`,
+        method: 'delete',
+        headers: {
+          Authorization: `Bearer ${getToken()}`,
+        },
+      }),
     }),
   }),
 })
 
-export const { useGetArticlesQuery, useGetArticleQuery } = articlesApi
+export const {
+  useGetArticleQuery,
+  useLazyGetArticlesQuery,
+  usePostArticleMutation,
+  useDelArticleQuery,
+} = articlesApi

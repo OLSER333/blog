@@ -45,7 +45,11 @@
     "extends": [
       "react-app",
       "react-app/jest"
-    ]
+    ],
+    "rules": {
+      "avoidEscape": true,
+      "allowTemplateLiterals": true
+    }
   },
   "browserslist": {
     "production": [

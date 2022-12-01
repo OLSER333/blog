@@ -47,10 +47,6 @@ const Layout = () => {
           </div>
           {!isAuth && (
             <div className={styles.singLinks}>
-              {/* // delete*/}
-              <CustomLink to={ERoutes.NEW_ARTICLE} customClass={customLinksClasses.USUAL}>
-                NEW_ARTICLE
-              </CustomLink>
               <CustomLink to={ERoutes.SIGN_IN} customClass={customLinksClasses.USUAL}>
                 Sign In
               </CustomLink>

@@ -3,11 +3,10 @@ import { IArticle } from '../models/IArticle'
 import { ERoutes } from '../routes/routes'
 import { IResponceError, IUserSignIn, IUserSignInResponce } from '../models/IUser'
 import { getToken } from '../utils/tokenLogic'
+import { baseApi } from './api'
 // import { IError } from '../models/IError'
 
-export const userApi = createApi({
-  reducerPath: 'userApi',
-  baseQuery: fetchBaseQuery({ baseUrl: 'https://blog.kata.academy/api' }),
+export const userApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     signUp: builder.mutation({
       // query: (query) => `articles/${query && `?limit=${query}`}`,

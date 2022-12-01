@@ -8,12 +8,14 @@ import { FormErrorsMsg } from '../../../types/FormErrorsMsg'
 import SubmitBtn from '../../UI/SubmitBtn/SubmitBtn'
 import TextareaInput from '../../UI/TextareaInput/TextareaInput'
 import EditTag from '../../UI/EditTag/EditTag'
+import { IArticleToCreate } from '../../../models/IArticle'
 
 interface ArticleFormProps {
   title: string
+  onSubmitArticle?: (data: IArticleToCreate) => Promise<void>
 }
 
-const ArticleForm: FC<ArticleFormProps> = ({ title }) => {
+const ArticleForm: FC<ArticleFormProps> = ({ title, onSubmitArticle }) => {
   const tags = ['I', 'love', 'Angelina']
   const {
     register,
@@ -23,6 +25,19 @@ const ArticleForm: FC<ArticleFormProps> = ({ title }) => {
   } = useForm<Inputs>({ mode: 'onTouched' })
   const onSubmit: SubmitHandler<Inputs> = (data) => {
     console.log(data)
+    const dataForSubmit = {
+      article: {
+        ...data,
+        tagList: tags,
+      },
+    }
+    // eslint-disable-next-line no-debugger
+    debugger
+    if (onSubmitArticle) {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      onSubmitArticle(dataForSubmit)
+    }
   }
 
   return (

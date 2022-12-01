@@ -3,11 +3,12 @@ import { articlesApi } from './articlesApi'
 import { userApi } from './userApi'
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux'
 import commonSlice from './commonSlice'
+import { baseApi } from './api'
 
 export const store = configureStore({
   reducer: {
-    [articlesApi.reducerPath]: articlesApi.reducer,
-    [userApi.reducerPath]: userApi.reducer,
+    [baseApi.reducerPath]: baseApi.reducer,
+    // [userApi.reducerPath]: userApi.reducer,
     commonSlice,
   },
   middleware: (getDefaultMiddleware) =>

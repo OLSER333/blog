@@ -31,34 +31,6 @@ const SignInUser = () => {
   }, [error])
   const signInUser = async (dataForSign: IUserSignIn) => {
     signIn(dataForSign)
-
-    // .unwrap()
-    // .then((res) => {
-
-    // setToken(res.data.user.token)
-    // dispatch(loginUser())
-    // navigate(ERoutes.ARTICLES)
-    // })
-    // .catch((error) => console.error('rejected', error))
-    // let res
-    // try {
-    //   res = await signIn(dataForSign)
-    //   console.log('here is your answ', res)
-    //
-    //   if (res) {
-    //     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    //     // @ts-ignore
-    //     setToken(res.data.user.token)
-    //     dispatch(loginUser())
-    //     navigate(ERoutes.ARTICLES)
-    //     return true
-    //     // надо navigate to locale from or to HOME
-    //   }
-    // } catch (e) {
-    //   console.log('your error ', e)
-    //   console.log('your error answ', res)
-    //   return res.e
-    // }
   }
   return (
     <div>
