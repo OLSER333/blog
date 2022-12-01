@@ -4,19 +4,11 @@ import { IUser } from '../models/IUser'
 // import { IUser } from '../api/types';
 
 interface ISlice {
-  // isAuth: boolean
-  // signInError: boolean
   curArticlesPage: number
   userData: IUser
 }
 
 const initialState: ISlice = {
-  // email: '',
-  // username: '',
-  // token: '',
-  // bio: '' | undefined,
-  // image: '',
-  // signInError: false,
   curArticlesPage: 1,
   userData: {
     email: null,
@@ -27,15 +19,24 @@ const initialState: ISlice = {
   },
 }
 
+const nullUser = {
+  userData: {
+    email: null,
+    image: null,
+    bio: null,
+    token: null,
+    username: null,
+  },
+}
+
 export const commonSlice = createSlice({
   initialState,
   name: 'commonSlice',
   reducers: {
     logoutUser: (state) => {
-      state.userData = initialState.userData
+      state.userData = nullUser.userData
     },
     loginUser: (state, action: PayloadAction<IUser>) => {
-      // action: PayloadAction<boolean>
       state.userData = action.payload
     },
 

@@ -34,7 +34,7 @@ export const articlesApi = baseApi.injectEndpoints({
         },
       }),
     }),
-    delArticle: build.query<any, string>({
+    delArticle: build.query<null, string>({
       query: (slug) => ({
         url: `/articles/${slug}`,
         method: 'delete',
@@ -50,5 +50,5 @@ export const {
   useGetArticleQuery,
   useLazyGetArticlesQuery,
   usePostArticleMutation,
-  useDelArticleQuery,
+  useLazyDelArticleQuery,
 } = articlesApi

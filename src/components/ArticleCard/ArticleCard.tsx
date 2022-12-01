@@ -10,10 +10,11 @@ import { IArticle, IArticleWithoutWrap } from '../../models/IArticle'
 import CustomLink from '../CustomLink/CustomLink'
 import ReactMarkdown from 'react-markdown'
 import { ERoutes } from '../../routes/routes'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { IProfile } from '../../models/IProfile'
 import { v4 } from 'uuid'
-import { useAppSelector } from '../../redux'
+import { useAppSelector, useLazyDelArticleQuery } from '../../redux'
+import { setCurArticlesPage } from '../../redux/commonSlice'
 
 interface IArticleItemProps {
   item: IArticleWithoutWrap
@@ -21,6 +22,8 @@ interface IArticleItemProps {
 }
 
 const ArticleCard: FC<IArticleItemProps> = ({ item, showBody }) => {
+  const navigate = useNavigate()
+  const [delArticle, { isError }] = useLazyDelArticleQuery()
   const { userData } = useAppSelector((state) => state.commonSlice)
   const {
     title,
@@ -39,6 +42,12 @@ const ArticleCard: FC<IArticleItemProps> = ({ item, showBody }) => {
   const editBtn = {
     color: ' var(--success-color)',
     border: '1px solid  var(--success-color)',
+  }
+
+  const onDeleteArticle = () => {
+    delArticle(slug, true)
+    setCurArticlesPage(1)
+    navigate(ERoutes.ARTICLES)
   }
 
   return (
@@ -71,6 +80,7 @@ const ArticleCard: FC<IArticleItemProps> = ({ item, showBody }) => {
             okText='Yes'
             cancelText='No'
             placement={'right'}
+            onConfirm={() => onDeleteArticle()}
           >
             <Button ghost danger>
               Delete

@@ -16,7 +16,7 @@ interface ArticleFormProps {
 }
 
 const ArticleForm: FC<ArticleFormProps> = ({ title, onSubmitArticle }) => {
-  const tags = ['I', 'love', 'Angelina']
+  const tags = ['I', 'love', 'hahahha']
   const {
     register,
     handleSubmit,
@@ -31,8 +31,6 @@ const ArticleForm: FC<ArticleFormProps> = ({ title, onSubmitArticle }) => {
         tagList: tags,
       },
     }
-    // eslint-disable-next-line no-debugger
-    debugger
     if (onSubmitArticle) {
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
