@@ -34,8 +34,8 @@ const SignUpForm: FC<SignUpFormProps> = ({ onSignUp }) => {
         username: data[EFormInps.USERNAME],
       },
     }
-    console.log('sign up data', forSignUp)
-    console.log(await onSignUp(forSignUp))
+    // console.log('sign up data', forSignUp)
+    onSignUp(forSignUp)
   }
 
   return (

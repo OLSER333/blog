@@ -15,6 +15,7 @@ export const userApi = baseApi.injectEndpoints({
         method: 'POST',
         body,
       }),
+      invalidatesTags: [{ type: 'Articles', id: 'LIST' }, 'Details'],
     }),
     // IError
     signIn: builder.mutation<IUserSignInResponce, IUserSignIn>({
@@ -24,6 +25,7 @@ export const userApi = baseApi.injectEndpoints({
         method: 'POST',
         body,
       }),
+      invalidatesTags: [{ type: 'Articles', id: 'LIST' }, 'Details'],
     }),
     getUser: builder.query<IUserSignInResponce, null>({
       query: () => ({
