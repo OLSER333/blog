@@ -32,11 +32,12 @@ const Articles = () => {
     getArticles({ page, limit }, true)
   }, [])
   useEffect(() => {
-    if (page === 1) {
-      getArticles({ page, limit })
-    } else {
-      getArticles({ page, limit }, true)
-    }
+    // gthde. всегд обновлять, Или не надо
+    // if (page === 1) {
+    //   getArticles({ page, limit })
+    // } else {
+    getArticles({ page, limit }, true)
+    // }
   }, [page])
   //
   //

@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { FC, memo } from 'react'
 import styles from './ArticleCard.module.scss'
 import avatar from '../../assets/img/avatar.png'
 import { Avatar, Button, Popconfirm } from 'antd'
@@ -13,7 +13,12 @@ import { ERoutes } from '../../routes/routes'
 import { useNavigate, useParams } from 'react-router-dom'
 import { IProfile } from '../../models/IProfile'
 import { v4 } from 'uuid'
-import { useAppSelector, useLazyDelArticleQuery } from '../../redux'
+import {
+  useAppSelector,
+  useDelArticleMutation,
+  useLikeArticleMutation,
+  useUnlikeArticleMutation,
+} from '../../redux'
 import { setCurArticlesPage } from '../../redux/commonSlice'
 
 interface IArticleItemProps {
@@ -23,7 +28,9 @@ interface IArticleItemProps {
 
 const ArticleCard: FC<IArticleItemProps> = ({ item, showBody }) => {
   const navigate = useNavigate()
-  const [delArticle, { isError }] = useLazyDelArticleQuery()
+  const [delArticle, { isError }] = useDelArticleMutation()
+  const [likeArticle, { error: likeError }] = useLikeArticleMutation()
+  const [unlikeArticle, { error: unlikeError }] = useUnlikeArticleMutation()
   const { userData } = useAppSelector((state) => state.commonSlice)
   const {
     title,
@@ -45,9 +52,14 @@ const ArticleCard: FC<IArticleItemProps> = ({ item, showBody }) => {
   }
 
   const onDeleteArticle = () => {
-    delArticle(slug, true)
+    delArticle(slug)
     setCurArticlesPage(1)
     navigate(ERoutes.ARTICLES)
+  }
+
+  const toggleLike = () => {
+    if (!favorited) likeArticle(slug)
+    else unlikeArticle(slug)
   }
 
   return (
@@ -57,7 +69,13 @@ const ArticleCard: FC<IArticleItemProps> = ({ item, showBody }) => {
           <CustomLink to={`${ERoutes.ARTICLES}/${slug}`}>
             <Title color={titleColors.BLUE}>{title}</Title>
           </CustomLink>
-          <Like favorited={favorited} favoritesCount={favoritesCount}></Like>
+          <Like
+            favorited={favorited}
+            favoritesCount={favoritesCount}
+            toggleLike={toggleLike}
+          ></Like>
+          {/* <div>{`${JSON.stringify(unlikeError)}`}</div>*/}
+          {/* <div>{`${JSON.stringify(likeError)}`}</div>*/}
         </div>
         <ul className={styles.tagList}>
           {tagList && tagList.map((tag) => <Tag key={v4()}>{tag}</Tag>)}
@@ -100,4 +118,4 @@ const ArticleCard: FC<IArticleItemProps> = ({ item, showBody }) => {
   )
 }
 
-export default ArticleCard
+export default memo(ArticleCard)

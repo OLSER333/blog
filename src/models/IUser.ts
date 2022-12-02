@@ -1,3 +1,11 @@
+export interface IUserSignUp {
+  user: {
+    email: string
+    username: string
+    password: string
+  }
+}
+
 export interface IUserSignIn {
   user: {
     email: string

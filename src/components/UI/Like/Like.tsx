@@ -7,11 +7,12 @@ interface ILikeProps {
   // changed: boolean or isAuth: ??
   favorited: boolean
   favoritesCount: number
+  toggleLike: () => void
 }
 
-const Like: FC<ILikeProps> = ({ favorited, favoritesCount }) => {
+const Like: FC<ILikeProps> = ({ favorited, favoritesCount, toggleLike }) => {
   return (
-    <button className={styles.btn}>
+    <button className={styles.btn} onClick={() => toggleLike()}>
       <img src={favorited ? activeLike : like} alt='' />
       {favoritesCount}
     </button>

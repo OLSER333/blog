@@ -1,14 +1,14 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import { IArticle } from '../models/IArticle'
 import { ERoutes } from '../routes/routes'
-import { IResponceError, IUserSignIn, IUserSignInResponce } from '../models/IUser'
+import { IResponceError, IUserSignIn, IUserSignInResponce, IUserSignUp } from '../models/IUser'
 import { getToken } from '../utils/tokenLogic'
 import { baseApi } from './api'
 // import { IError } from '../models/IError'
 
 export const userApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
-    signUp: builder.mutation({
+    signUp: builder.mutation<IUserSignInResponce, IUserSignUp>({
       // query: (query) => `articles/${query && `?limit=${query}`}`,
       query: (body) => ({
         url: '/users',

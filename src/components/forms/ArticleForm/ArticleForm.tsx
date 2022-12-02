@@ -1,22 +1,28 @@
-import React, { FC } from 'react'
+import React, { FC, useState } from 'react'
 import styles from './ArticleForm.module.scss'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { EFormInps, Inputs } from '../../UI/FormWindow/FormWindow'
 import Title, { titleColors } from '../../UI/Title/Title'
 import TextInput from '../../UI/TextInput/TextInput'
-import { FormErrorsMsg } from '../../../types/FormErrorsMsg'
 import SubmitBtn from '../../UI/SubmitBtn/SubmitBtn'
 import TextareaInput from '../../UI/TextareaInput/TextareaInput'
 import EditTag from '../../UI/EditTag/EditTag'
 import { IArticleToCreate } from '../../../models/IArticle'
+import { v4 } from 'uuid'
+import TagList from '../../TagList/TagList'
 
 interface ArticleFormProps {
   title: string
   onSubmitArticle?: (data: IArticleToCreate) => Promise<void>
 }
 
+export interface ITag {
+  value: string
+  key: string
+}
+
 const ArticleForm: FC<ArticleFormProps> = ({ title, onSubmitArticle }) => {
-  const tags = ['I', 'love', 'hahahha']
+  const [tags, setTags] = useState<ITag[]>([])
   const {
     register,
     handleSubmit,
@@ -28,13 +34,30 @@ const ArticleForm: FC<ArticleFormProps> = ({ title, onSubmitArticle }) => {
     const dataForSubmit = {
       article: {
         ...data,
-        tagList: tags,
+        tagList: tags.map((tag) => tag.value),
       },
     }
     if (onSubmitArticle) {
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       onSubmitArticle(dataForSubmit)
+    }
+  }
+
+  const addTag = (newTag: string) => {
+    if (newTag) {
+      setTags((prev) => [
+        ...prev,
+        {
+          value: newTag,
+          key: v4(),
+        },
+      ])
+    }
+  }
+  const DelTag = (delTagKey: string) => {
+    if (delTagKey) {
+      setTags((prev) => prev.filter((tag) => tag.key !== delTagKey))
     }
   }
 
@@ -75,18 +98,11 @@ const ArticleForm: FC<ArticleFormProps> = ({ title, onSubmitArticle }) => {
         <div>
           <label className={styles.tagsLabel}>Tags</label>
           <ul className={styles.editTagList}>
-            {tags.map((el) => {
-              return (
-                <li key={el}>
-                  <EditTag withAdd={false} disabled={true}>
-                    {el}
-                  </EditTag>
-                </li>
-              )
-            })}
-            <EditTag withAdd={true} disabled={false}>
-              Tag
-            </EditTag>
+            <TagList
+              tags={tags}
+              onDelTag={(key) => DelTag(key)}
+              onAddTag={(newTag) => addTag(newTag)}
+            />
           </ul>
         </div>
         <SubmitBtn addStyles={style}>Send</SubmitBtn>

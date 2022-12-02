@@ -4,6 +4,7 @@ import { getToken } from '../utils/tokenLogic'
 
 export const baseApi = createApi({
   reducerPath: 'baseApi',
+  tagTypes: ['Articles', 'Details'],
   baseQuery: fetchBaseQuery({
     baseUrl: 'https://blog.kata.academy/api',
     prepareHeaders: (headers, { getState }) => {

@@ -10,20 +10,32 @@ import { Link } from 'react-router-dom'
 import { ERoutes } from '../../../routes/routes'
 import { EFormInps, Inputs } from '../../UI/FormWindow/FormWindow'
 import { SubmitHandler, useForm } from 'react-hook-form'
+import { IUserSignUp } from '../../../models/IUser'
 
 // interface SignUpFormProps {
 // }
 // : FC<SignUpFormProps>
+interface SignUpFormProps {
+  onSignUp: (data: IUserSignUp) => void
+}
 
-const SignUpForm = () => {
+const SignUpForm: FC<SignUpFormProps> = ({ onSignUp }) => {
   const {
     register,
     handleSubmit,
     formState: { errors },
     getValues,
   } = useForm<Inputs>({ mode: 'onTouched' })
-  const onSubmit: SubmitHandler<Inputs> = (data) => {
-    console.log(data)
+  const onSubmit: SubmitHandler<Inputs> = async (data) => {
+    const forSignUp = {
+      user: {
+        email: data[EFormInps.EMAIL],
+        password: data[EFormInps.PASSWORD],
+        username: data[EFormInps.USERNAME],
+      },
+    }
+    console.log('sign up data', forSignUp)
+    console.log(await onSignUp(forSignUp))
   }
 
   return (
