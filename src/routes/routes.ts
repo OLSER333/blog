@@ -6,8 +6,9 @@ export enum ERoutes {
   EDIT_USER = '/edit-user',
   // NEW_USER = '/new-user',
   NEW_ARTICLE = '/new-article',
-  EDIT_ARTICLE = '/edit-article',
   TOGGLE_FAVORITE = '/favorite',
+
+  EDIT_ARTICLE = 'edit-article',
 
   OFFSET_ARTICLES = '?offset=',
   ANY = '*',

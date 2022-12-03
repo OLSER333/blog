@@ -44,6 +44,14 @@ export const articlesApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: [{ type: 'Articles', id: 'LIST' }],
     }),
+    putArticle: build.mutation<IArticle, { body: IArticleToCreate; slug: string }>({
+      query: ({ slug, body }) => ({
+        method: 'put',
+        url: `${ERoutes.ARTICLES}/${slug}`,
+        body,
+      }),
+      invalidatesTags: [{ type: 'Articles', id: 'LIST' }, 'Details'],
+    }),
     delArticle: build.mutation<null, string>({
       query: (slug) => ({
         url: `${ERoutes.ARTICLES}/${slug}`,
@@ -76,4 +84,5 @@ export const {
   useDelArticleMutation,
   useLikeArticleMutation,
   useUnlikeArticleMutation,
+  usePutArticleMutation,
 } = articlesApi

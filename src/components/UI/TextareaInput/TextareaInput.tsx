@@ -9,9 +9,17 @@ interface InputProps {
   register: any
   errors: FieldErrors<Inputs>
   name: EFormInps
+  defValue?: string
 }
 
-const TextareaInput: FC<InputProps> = ({ label, register, errors, name, placeholder }) => {
+const TextareaInput: FC<InputProps> = ({
+  label,
+  register,
+  errors,
+  name,
+  placeholder,
+  defValue,
+}) => {
   console.log(errors)
   const getClass = (hasError: FieldError | undefined) => (hasError ? styles.erroredInp : '')
 
@@ -22,6 +30,7 @@ const TextareaInput: FC<InputProps> = ({ label, register, errors, name, placehol
         className={`${styles.inp} ${getClass(errors[name])}`}
         {...register}
         placeholder={placeholder}
+        defaultValue={defValue ? defValue : ''}
       />
 
       {errors[name] && (

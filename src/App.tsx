@@ -81,7 +81,14 @@ const App = () => {
               </RequireAuth>
             }
           />
-          <Route path={ERoutes.EDIT_ARTICLE} element={<EditArticle />} />
+          <Route
+            path={`${ERoutes.ARTICLES}/:slug/${ERoutes.EDIT_ARTICLE}`}
+            element={
+              <RequireAuth>
+                <EditArticle />
+              </RequireAuth>
+            }
+          />
           {/* <Route path={ERoutes.NEW_USER} element={<SignUpUser />} />*/}
           {/* <Route path={'/works'} element={<Works />} />*/}
           {/* <Route path={'/worksss'} element={<Navigate to={'/works'} replace state={'123'} />} />*/}

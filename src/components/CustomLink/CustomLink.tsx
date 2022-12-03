@@ -19,9 +19,10 @@ interface IcustomLink {
   customClass?: customLinksClasses
   // state?: any
   customLogic?: () => void | undefined
+  state?: any
 }
 
-const CustomLink = ({ children, to, customClass, customLogic, ...props }: IcustomLink) => {
+const CustomLink = ({ children, to, customClass, customLogic, state, ...props }: IcustomLink) => {
   // const match = useMatch(to)
   //   <Link to={to} className={match ? 'active-router-link' : ''} {...props}>
   // useStorageWatch(TOKEN)
@@ -35,6 +36,7 @@ const CustomLink = ({ children, to, customClass, customLogic, ...props }: Icusto
       to={to}
       className={`${styles.common} ${customClass ? styles[customClass] : ''}`}
       {...props}
+      state={state}
     >
       {children}
     </Link>

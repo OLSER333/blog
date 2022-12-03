@@ -104,7 +104,7 @@ const ArticleCard: FC<IArticleItemProps> = ({ item, showBody }) => {
               Delete
             </Button>
           </Popconfirm>
-          <CustomLink to={ERoutes.EDIT_ARTICLE}>
+          <CustomLink to={`${ERoutes.EDIT_ARTICLE}`} state={{ title, body, description, tagList }}>
             <Button style={editBtn}>Edit</Button>
           </CustomLink>
         </div>
