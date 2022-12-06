@@ -21,6 +21,26 @@ export interface IUser {
   image?: string | null
 }
 
+export interface IUserUpdateResponce {
+  user: {
+    email: string
+    username: string
+    token: string
+    bio?: string
+    image?: string
+  }
+}
+
+export interface IUserUpdate {
+  user: {
+    email: string
+    username: string
+    password: string
+    image: string
+    bio?: string
+  }
+}
+
 export interface IUserSignInResponce {
   user: IUser
 }

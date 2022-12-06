@@ -1,7 +1,14 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import { IArticle } from '../models/IArticle'
 import { ERoutes } from '../routes/routes'
-import { IResponceError, IUserSignIn, IUserSignInResponce, IUserSignUp } from '../models/IUser'
+import {
+  IResponceError,
+  IUserSignIn,
+  IUserSignInResponce,
+  IUserSignUp,
+  IUserUpdate,
+  IUserUpdateResponce,
+} from '../models/IUser'
 import { getToken } from '../utils/tokenLogic'
 import { baseApi } from './api'
 // import { IError } from '../models/IError'
@@ -27,6 +34,15 @@ export const userApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: [{ type: 'Articles', id: 'LIST' }, 'Details'],
     }),
+    putUser: builder.mutation<IUserUpdateResponce, IUserUpdate>({
+      // query: (query) => `articles/${query && `?limit=${query}`}`,
+      query: (body) => ({
+        url: '/user',
+        method: 'PUT',
+        body,
+      }),
+      invalidatesTags: [{ type: 'Articles', id: 'LIST' }, 'Details'],
+    }),
     getUser: builder.query<IUserSignInResponce, null>({
       query: () => ({
         url: '/user',
@@ -36,5 +52,10 @@ export const userApi = baseApi.injectEndpoints({
   }),
 })
 
-export const { useSignUpMutation, useSignInMutation, useGetUserQuery, useLazyGetUserQuery } =
-  userApi
+export const {
+  useSignUpMutation,
+  useSignInMutation,
+  useGetUserQuery,
+  useLazyGetUserQuery,
+  usePutUserMutation,
+} = userApi

@@ -10,7 +10,7 @@ interface InputProps {
   register: any
   errors: FieldErrors<Inputs>
   name: EFormInps
-  defValue?: string
+  defValue?: string | undefined | null
 }
 
 const TextInput: FC<InputProps> = ({

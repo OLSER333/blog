@@ -1,15 +1,19 @@
 import React, { FC } from 'react'
-import styles from './EditUserForm.module.scss'
 import Title, { titleColors } from '../../UI/Title/Title'
 import TextInput from '../../UI/TextInput/TextInput'
 import { EFormInps, Inputs } from '../../UI/FormWindow/FormWindow'
 import { FormErrorsMsg } from '../../../types/FormErrorsMsg'
 import SubmitBtn from '../../UI/SubmitBtn/SubmitBtn'
-import { Link } from 'react-router-dom'
-import { ERoutes } from '../../../routes/routes'
 import { SubmitHandler, useForm } from 'react-hook-form'
+import { IUserUpdate } from '../../../models/IUser'
+import { useAppSelector } from '../../../redux'
 
-const EditUserForm = () => {
+interface IEditUserFormProps {
+  onEditUser: (newUser: IUserUpdate) => void
+}
+
+const EditUserForm: FC<IEditUserFormProps> = ({ onEditUser }) => {
+  const { userData } = useAppSelector((state) => state.commonSlice)
   const {
     register,
     handleSubmit,
@@ -17,7 +21,15 @@ const EditUserForm = () => {
     getValues,
   } = useForm<Inputs>({ mode: 'onTouched' })
   const onSubmit: SubmitHandler<Inputs> = (data) => {
-    console.log(data)
+    console.log('newDataUser', data)
+    onEditUser({
+      user: {
+        email: data[EFormInps.EMAIL],
+        username: data[EFormInps.USERNAME],
+        password: data[EFormInps.PASSWORD],
+        image: data[EFormInps.AVATAR_PATH],
+      },
+    })
   }
 
   return (
@@ -33,6 +45,7 @@ const EditUserForm = () => {
           errors={errors}
           name={EFormInps.USERNAME}
           placeholder={'Username'}
+          defValue={userData.username ? userData.username : ''}
         />
         <TextInput
           register={register(EFormInps.EMAIL, {
@@ -49,6 +62,7 @@ const EditUserForm = () => {
           errors={errors}
           name={EFormInps.EMAIL}
           placeholder={'Email address'}
+          defValue={userData.email ? userData.email : ''}
         />
 
         <TextInput
@@ -73,11 +87,12 @@ const EditUserForm = () => {
               message: 'Incorrect address',
             },
           })}
-          type={'password'}
+          type={'text'}
           label={'Avatar image'}
           errors={errors}
           name={EFormInps.AVATAR_PATH}
           placeholder={'Avatar image (url)'}
+          defValue={userData.image ? userData.image : ''}
         />
 
         <SubmitBtn>Save</SubmitBtn>

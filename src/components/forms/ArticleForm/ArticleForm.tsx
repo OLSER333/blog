@@ -42,7 +42,7 @@ const ArticleForm: FC<ArticleFormProps> = ({ title, onSubmitArticle, stateForEdi
   }
 
   const addTag = (newTag: string) => {
-    if (newTag) {
+    if (newTag && !tags.filter((tag) => tag === newTag).length) {
       setTags((prev) => [...prev, newTag])
     }
   }

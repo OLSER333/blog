@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { getToken, isValidToken } from '../utils/tokenLogic'
 import { IUser } from '../models/IUser'
+
 // import { IUser } from '../api/types';
 
 interface ISlice {
@@ -37,11 +38,18 @@ export const commonSlice = createSlice({
       state.userData = nullUser.userData
     },
     loginUser: (state, action: PayloadAction<IUser>) => {
+      console.log('action login', action)
+
       state.userData = action.payload
     },
 
     setCurArticlesPage: (state, action: PayloadAction<number>) => {
       state.curArticlesPage = action.payload
+    },
+
+    updateUserState: (state, action: PayloadAction<IUser>) => {
+      console.log('action', action)
+      state.userData = action.payload
     },
 
     // setSignInError: (state, action: PayloadAction<boolean>) => {
@@ -52,4 +60,4 @@ export const commonSlice = createSlice({
 
 export default commonSlice.reducer
 
-export const { logoutUser, loginUser, setCurArticlesPage } = commonSlice.actions
+export const { logoutUser, loginUser, setCurArticlesPage, updateUserState } = commonSlice.actions
