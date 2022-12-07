@@ -2,7 +2,6 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 import styles from './CustomLink.module.scss'
-import { AnyForChanging } from '../../types/anyForChanging'
 
 export enum customLinksClasses {
   USUAL = 'usual',
@@ -12,7 +11,7 @@ export enum customLinksClasses {
 }
 
 interface IcustomLink {
-  children: AnyForChanging
+  children: any
   to: string
   customClass?: customLinksClasses
   customLogic?: () => void | undefined

@@ -20,7 +20,6 @@ const TextareaInput: FC<InputProps> = ({
   placeholder,
   defValue,
 }) => {
-  console.log(errors)
   const getClass = (hasError: FieldError | undefined) => (hasError ? styles.erroredInp : '')
 
   return (

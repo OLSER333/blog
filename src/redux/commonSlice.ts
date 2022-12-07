@@ -36,8 +36,6 @@ export const commonSlice = createSlice({
       state.userData = nullUser.userData
     },
     loginUser: (state, action: PayloadAction<IUser>) => {
-      console.log('action login', action)
-
       state.userData = action.payload
     },
 
@@ -46,7 +44,6 @@ export const commonSlice = createSlice({
     },
 
     updateUserState: (state, action: PayloadAction<IUser>) => {
-      console.log('action', action)
       state.userData = action.payload
     },
   },

@@ -14,7 +14,7 @@ import { toast } from 'react-toastify'
 const SignInUser = () => {
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
-  const [signIn, { data, isSuccess, error, status }] = useSignInMutation()
+  const [signIn, { data, isSuccess, error }] = useSignInMutation()
   useEffect(() => {
     if (isSuccess) {
       if (data) {
@@ -27,7 +27,6 @@ const SignInUser = () => {
   }, [isSuccess])
   useEffect(() => {
     if (error) {
-      console.log('st', status)
       toast.error('Email or password is invalid.')
     }
   }, [error])

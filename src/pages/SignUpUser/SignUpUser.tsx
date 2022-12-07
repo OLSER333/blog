@@ -26,7 +26,6 @@ const SignUpUser = () => {
   }, [isSuccess])
   useEffect(() => {
     if (error) {
-      console.log('here eroror', error)
       toast.error('Something went wrong! Try to reload.')
     }
   }, [error])

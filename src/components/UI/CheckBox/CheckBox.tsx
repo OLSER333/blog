@@ -13,7 +13,6 @@ interface ICheckBoxProps {
 
 const CheckBox: FC<ICheckBoxProps> = ({ label, register, errors, name }) => {
   const getClass = (hasError: FieldError | undefined) => (hasError ? styles.erroredInp : '')
-  //
   const uniqId = uuid()
   return (
     <div className={styles.elem}>

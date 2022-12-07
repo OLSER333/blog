@@ -10,11 +10,8 @@ interface EditTagProps {
   onDelTag?: () => void
 }
 
-// !!!!!!! сделай проверку на уже существ. тег
 const EditTag: FC<EditTagProps> = ({ children = '', withAdd, disabled, onAddTag, onDelTag }) => {
-  // const inp = useRef<HTMLInputElement>(null)
   const [inpVal, setInpVal] = useState<string>(children)
-  // const handleInp = () => {}
   const addWithClean = () => {
     if (onAddTag) {
       onAddTag(inpVal)
@@ -27,7 +24,6 @@ const EditTag: FC<EditTagProps> = ({ children = '', withAdd, disabled, onAddTag,
         readOnly={disabled}
         value={inpVal}
         onInput={(e) => setInpVal(e.currentTarget.value)}
-        // ref={inp}
         type='text'
         className={`${disabled ? styles.disableFocus : ''} ${styles.inp}`}
         placeholder={children}

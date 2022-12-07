@@ -1,12 +1,11 @@
 import React, { FC } from 'react'
-import { AnyForChanging } from '../../types/anyForChanging'
 import { Navigate, useLocation } from 'react-router-dom'
 import { ERoutes } from '../../routes/routes'
 import { isValidToken } from '../../utils/tokenLogic'
 import { toast } from 'react-toastify'
 
 interface RequireAuthProps {
-  children: AnyForChanging
+  children: any
 }
 
 const RequireAuth: FC<RequireAuthProps> = ({ children }) => {
