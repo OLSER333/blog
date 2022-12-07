@@ -1,4 +1,4 @@
-# https://blog-g7m46j0y1-olser333.vercel.app/articles
+# https://blog-g7m46j0y1-olser333.vercel.app
 
 ## Getting Started with Create React App
 
