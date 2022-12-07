@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react'
-import styles from './EditUser.module.scss'
 import FormWindow from '../../components/UI/FormWindow/FormWindow'
 import EditUserForm from '../../components/forms/EditUserForm/EditUserForm'
 import { ERoutes } from '../../routes/routes'
@@ -17,14 +16,12 @@ const EditUser = () => {
   const [putUser, { data, isSuccess, error }] = usePutUserMutation()
 
   const updateUser = (newUser: IUserUpdate) => {
-    console.log('newUser', newUser)
     putUser(newUser)
   }
 
   useEffect(() => {
     if (isSuccess) {
       if (data) {
-        console.log('want update', data)
         dispatch(updateUserState({ ...data.user }))
         navigate(ERoutes.ARTICLES)
         toast.success('Your profile has been updated.')

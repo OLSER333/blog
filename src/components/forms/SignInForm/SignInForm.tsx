@@ -4,11 +4,10 @@ import TextInput from '../../UI/TextInput/TextInput'
 import { EFormInps, Inputs } from '../../UI/FormWindow/FormWindow'
 import { FormErrorsMsg } from '../../../types/FormErrorsMsg'
 import SubmitBtn from '../../UI/SubmitBtn/SubmitBtn'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { ERoutes } from '../../../routes/routes'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { IUserSignIn } from '../../../models/IUser'
-import { useSignInMutation } from '../../../redux/userApi'
 
 interface SignInFormProps {
   onSignIn: (data: IUserSignIn) => void
@@ -19,19 +18,16 @@ const SignInForm: FC<SignInFormProps> = ({ onSignIn }) => {
     register,
     handleSubmit,
     formState: { errors },
-    setError,
-    getValues,
   } = useForm<Inputs>({ mode: 'onTouched' })
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     const forSignIn = {
       user: {
-        email: data[EFormInps.EMAIL],
+        email: data[EFormInps.EMAIL].toLowerCase().trim(),
         password: data[EFormInps.PASSWORD],
       },
     }
-    console.log('sign in data', forSignIn)
-    console.log(await onSignIn(forSignIn))
+    await onSignIn(forSignIn)
   }
 
   return (

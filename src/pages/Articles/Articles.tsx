@@ -32,12 +32,14 @@ const Articles = () => {
     getArticles({ page, limit }, true)
   }, [page])
 
+  const hasData = !isLoading && !error && data
+
   return (
     <>
       {/* eslint-disable-next-line*/}
       {error && <ErrorAlert>{"Can't load articles"}</ErrorAlert>}
       {isLoading && <Spin></Spin>}
-      {data && (
+      {hasData && (
         <>
           <ul className={styles.list}>
             {data.articles.map((article) => (

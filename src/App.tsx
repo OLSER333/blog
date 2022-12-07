@@ -15,55 +15,43 @@ import { useAppDispatch } from './redux'
 import { useLazyGetUserQuery } from './redux/userApi'
 import { getToken } from './utils/tokenLogic'
 import { loginUser } from './redux/commonSlice'
-import { IUser, IUserSignInResponce } from './models/IUser'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.min.css'
 
 const App = () => {
-  // const nested = (
-  //   <Routes>
-  //     <Route index element={<Articles />} />
-  //     <Route path={ERoutes.SIGN_UP} element={<SignUpUser />} />
-  //     <Route path={ERoutes.SIGN_IN} element={<SignInUser />} />
-  //     <Route path={ERoutes.EDIT_USER} element={<EditUser />} />
-  //     {/* <Route path={ERoutes.NEW_USER} element={<SignUpUser />} />*/}
-  //     {/* <Route path={'/works'} element={<Works />} />*/}
-  //     {/* <Route path={'/worksss'} element={<Navigate to={'/works'} replace state={'123'} />} />*/}
-  //     {/* <Route path={'/works/:id'} element={<SingleWork />} />*/}
-  //     {/* <Route path={'/works/:id/edit'} element={<EditWork />} />*/}
-  //     {/* <Route path={'/hobby'} element={} />*/}
-  //     <Route path={ERoutes.ANY} element={<NotFoundPage />} />
-  //   </Routes>
-  // )
-  // useStorageWatch(TOKEN)
-
-  // 158 40 Asdrtyop+912
-
-  const [getUser, { data }] = useLazyGetUserQuery()
+  const [getUser] = useLazyGetUserQuery()
   const dispatch = useAppDispatch()
   useEffect(() => {
     if (getToken()) {
       getUser(null, true)
         .unwrap()
         .then((curUser) => {
-          console.log(curUser)
           if (curUser) {
             dispatch(loginUser(curUser.user))
           }
         })
     }
-    // dispatch(loginUser())
   }, [])
 
   return (
     <>
-      <ToastContainer />
+      <ToastContainer
+        position='top-left'
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme='light'
+      />
       <Routes>
         <Route path={ERoutes.HOME} element={<Layout />}>
           <Route index element={<Navigate to={ERoutes.ARTICLES} replace={true} />} />
           <Route path={ERoutes.ARTICLES} element={<Articles />} />
           <Route path={`${ERoutes.ARTICLES}/:slug`} element={<SingleArticle />} />
-          <Route path={`${ERoutes.ARTICLES}/:offset`} element={<Articles />} />
           <Route path={ERoutes.SIGN_UP} element={<SignUpUser />} />
           <Route path={ERoutes.SIGN_IN} element={<SignInUser />} />
 
@@ -92,12 +80,6 @@ const App = () => {
               </RequireAuth>
             }
           />
-          {/* <Route path={ERoutes.NEW_USER} element={<SignUpUser />} />*/}
-          {/* <Route path={'/works'} element={<Works />} />*/}
-          {/* <Route path={'/worksss'} element={<Navigate to={'/works'} replace state={'123'} />} />*/}
-          {/* <Route path={'/works/:id'} element={<SingleWork />} />*/}
-          {/* <Route path={'/works/:id/edit'} element={<EditWork />} />*/}
-          {/* <Route path={'/hobby'} element={} />*/}
           <Route path={ERoutes.ANY} element={<NotFoundPage />} />
         </Route>
       </Routes>

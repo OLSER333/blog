@@ -4,7 +4,6 @@ export enum ERoutes {
   SIGN_UP = '/sign-up',
   SIGN_IN = '/sign-in',
   EDIT_USER = '/edit-user',
-  // NEW_USER = '/new-user',
   NEW_ARTICLE = '/new-article',
   TOGGLE_FAVORITE = '/favorite',
 

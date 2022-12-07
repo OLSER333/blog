@@ -1,5 +1,4 @@
 import React, { FC } from 'react'
-import styles from './TagList.module.scss'
 import EditTag from '../UI/EditTag/EditTag'
 
 interface TagListProps {

@@ -1,6 +1,5 @@
 import React, { FC } from 'react'
 import styles from './FormWindow.module.scss'
-import SignUpForm from '../../forms/SignUpForm/SignUpForm'
 
 export enum EFormInps {
   USERNAME = 'Username',

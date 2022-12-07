@@ -1,8 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { getToken, isValidToken } from '../utils/tokenLogic'
+import { getToken } from '../utils/tokenLogic'
 import { IUser } from '../models/IUser'
-
-// import { IUser } from '../api/types';
 
 interface ISlice {
   curArticlesPage: number
@@ -51,10 +49,6 @@ export const commonSlice = createSlice({
       console.log('action', action)
       state.userData = action.payload
     },
-
-    // setSignInError: (state, action: PayloadAction<boolean>) => {
-    //   state.signInError = action.payload
-    // },
   },
 })
 

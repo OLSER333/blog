@@ -1,6 +1,4 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import { IArticle, IArticlesForRender, IArticleToCreate } from '../models/IArticle'
-import { getToken } from '../utils/tokenLogic'
 import { baseApi } from './api'
 import { ERoutes } from '../routes/routes'
 
@@ -12,7 +10,6 @@ export interface getArticlesProps {
 export const articlesApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
     getArticles: build.query<IArticlesForRender, getArticlesProps>({
-      // query: (query) => `articles/${query && `?limit=${query}`}`,
       query: ({ limit = 5, page = 1 }) => ({
         url: '/articles/',
         params: {

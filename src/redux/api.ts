@@ -7,10 +7,10 @@ export const baseApi = createApi({
   tagTypes: ['Articles', 'Details'],
   baseQuery: fetchBaseQuery({
     baseUrl: 'https://blog.kata.academy/api',
-    prepareHeaders: (headers, { getState }) => {
+    prepareHeaders: (headers) => {
       const token = getToken()
       if (token) headers.set('authorization', `Bearer ${getToken()}`)
     },
   }),
-  endpoints: (build) => ({}),
+  endpoints: () => ({}),
 })

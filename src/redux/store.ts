@@ -8,7 +8,6 @@ import { baseApi } from './api'
 export const store = configureStore({
   reducer: {
     [baseApi.reducerPath]: baseApi.reducer,
-    // [userApi.reducerPath]: userApi.reducer,
     commonSlice,
   },
   middleware: (getDefaultMiddleware) =>

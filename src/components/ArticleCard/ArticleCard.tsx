@@ -1,17 +1,15 @@
 import React, { FC, memo, useEffect } from 'react'
 import styles from './ArticleCard.module.scss'
-import avatar from '../../assets/img/avatar.png'
-import { Avatar, Button, Popconfirm } from 'antd'
+import { Button, Popconfirm } from 'antd'
 import Title, { titleColors } from '../UI/Title/Title'
 import Like from '../UI/Like/Like'
 import Tag from '../UI/Tag/Tag'
 import AvatarLarge from '../UI/AvatarLarge/AvatarLarge'
-import { IArticle, IArticleWithoutWrap } from '../../models/IArticle'
+import { IArticleWithoutWrap } from '../../models/IArticle'
 import CustomLink from '../CustomLink/CustomLink'
 import ReactMarkdown from 'react-markdown'
 import { ERoutes } from '../../routes/routes'
-import { useNavigate, useParams } from 'react-router-dom'
-import { IProfile } from '../../models/IProfile'
+import { useNavigate } from 'react-router-dom'
 import { v4 } from 'uuid'
 import {
   useAppSelector,
@@ -19,7 +17,7 @@ import {
   useLikeArticleMutation,
   useUnlikeArticleMutation,
 } from '../../redux'
-import { loginUser, setCurArticlesPage } from '../../redux/commonSlice'
+import { setCurArticlesPage } from '../../redux/commonSlice'
 import { toast } from 'react-toastify'
 
 interface IArticleItemProps {
@@ -30,8 +28,8 @@ interface IArticleItemProps {
 const ArticleCard: FC<IArticleItemProps> = ({ item, showBody }) => {
   const navigate = useNavigate()
   const [delArticle, { error, isSuccess }] = useDelArticleMutation()
-  const [likeArticle, { error: likeError }] = useLikeArticleMutation()
-  const [unlikeArticle, { error: unlikeError }] = useUnlikeArticleMutation()
+  const [likeArticle, { isError: likeError }] = useLikeArticleMutation()
+  const [unlikeArticle, { isError }] = useUnlikeArticleMutation()
   const { userData } = useAppSelector((state) => state.commonSlice)
   const { title, body, author, favorited, favoritesCount, slug, createdAt, tagList, description } =
     item
@@ -47,7 +45,7 @@ const ArticleCard: FC<IArticleItemProps> = ({ item, showBody }) => {
     if (error) {
       toast.error('Something went wrong! Try again.')
     }
-  }, [error])
+  }, [error, isError, likeError])
 
   const editBtn = {
     color: ' var(--success-color)',

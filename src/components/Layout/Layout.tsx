@@ -18,7 +18,7 @@ const Layout = () => {
   function logoutWithRedirect() {
     delToken()
     dispatch(logoutUser())
-    toast.success('You have logged out.')
+    toast.info('You have logged out.')
   }
 
   return (

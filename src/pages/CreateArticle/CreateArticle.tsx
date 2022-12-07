@@ -1,21 +1,18 @@
-import React, { FC, useEffect } from 'react'
-import styles from './CreateArticle.module.scss'
+import React, { useEffect } from 'react'
 import ArticleForm from '../../components/forms/ArticleForm/ArticleForm'
 import FormWindow from '../../components/UI/FormWindow/FormWindow'
 import { usePostArticleMutation } from '../../redux'
-import { IArticleToCreate, IArticleToCreateWithoutWrap } from '../../models/IArticle'
+import { IArticleToCreate } from '../../models/IArticle'
 import { ERoutes } from '../../routes/routes'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
+import styles from './CreateArticle.module.scss'
 
 const CreateArticle = () => {
   const navigate = useNavigate()
   const [postArticle, { data, isSuccess, error }] = usePostArticleMutation()
 
   const createArticle = async (data: IArticleToCreate) => {
-    // eslint-disable-next-line no-debugger
-    console.log('for Create', data)
-
     await postArticle(data)
   }
 
@@ -29,14 +26,13 @@ const CreateArticle = () => {
   }, [isSuccess])
   useEffect(() => {
     if (error) {
-      console.log('here eroror', error)
       toast.error('Ooops! Something went wrong!')
     }
   }, [error])
 
   return (
     <FormWindow>
-      <div style={{ width: '940px' }}>
+      <div className={styles.createArticle}>
         <ArticleForm title={'Create new article'} onSubmitArticle={createArticle} />
       </div>
     </FormWindow>

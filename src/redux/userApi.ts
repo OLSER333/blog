@@ -1,8 +1,4 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-import { IArticle } from '../models/IArticle'
-import { ERoutes } from '../routes/routes'
 import {
-  IResponceError,
   IUserSignIn,
   IUserSignInResponce,
   IUserSignUp,
@@ -11,12 +7,10 @@ import {
 } from '../models/IUser'
 import { getToken } from '../utils/tokenLogic'
 import { baseApi } from './api'
-// import { IError } from '../models/IError'
 
 export const userApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     signUp: builder.mutation<IUserSignInResponce, IUserSignUp>({
-      // query: (query) => `articles/${query && `?limit=${query}`}`,
       query: (body) => ({
         url: '/users',
         method: 'POST',
@@ -24,9 +18,7 @@ export const userApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: [{ type: 'Articles', id: 'LIST' }, 'Details'],
     }),
-    // IError
     signIn: builder.mutation<IUserSignInResponce, IUserSignIn>({
-      // query: (query) => `articles/${query && `?limit=${query}`}`,
       query: (body) => ({
         url: '/users/login',
         method: 'POST',
@@ -35,7 +27,6 @@ export const userApi = baseApi.injectEndpoints({
       invalidatesTags: [{ type: 'Articles', id: 'LIST' }, 'Details'],
     }),
     putUser: builder.mutation<IUserUpdateResponce, IUserUpdate>({
-      // query: (query) => `articles/${query && `?limit=${query}`}`,
       query: (body) => ({
         url: '/user',
         method: 'PUT',
@@ -52,10 +43,5 @@ export const userApi = baseApi.injectEndpoints({
   }),
 })
 
-export const {
-  useSignUpMutation,
-  useSignInMutation,
-  useGetUserQuery,
-  useLazyGetUserQuery,
-  usePutUserMutation,
-} = userApi
+export const { useSignUpMutation, useSignInMutation, useLazyGetUserQuery, usePutUserMutation } =
+  userApi

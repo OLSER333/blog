@@ -2,7 +2,6 @@ import React, { FC } from 'react'
 import styles from './CheckBox.module.scss'
 import { FieldError, FieldErrors } from 'react-hook-form'
 import { EFormInps, Inputs } from '../FormWindow/FormWindow'
-import { Checkbox } from 'antd'
 import { v4 as uuid } from 'uuid'
 
 interface ICheckBoxProps {

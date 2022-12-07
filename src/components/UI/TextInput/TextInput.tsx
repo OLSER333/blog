@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 import styles from './TextInput.module.scss'
-import { FieldError, FieldErrors, UseFormRegister } from 'react-hook-form'
+import { FieldError, FieldErrors } from 'react-hook-form'
 import { EFormInps, Inputs } from '../FormWindow/FormWindow'
 
 interface InputProps {
@@ -22,7 +22,6 @@ const TextInput: FC<InputProps> = ({
   placeholder,
   defValue,
 }) => {
-  console.log(errors)
   const getClass = (hasError: FieldError | undefined) => (hasError ? styles.erroredInp : '')
 
   return (

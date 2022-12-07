@@ -44,7 +44,6 @@ export interface IUserUpdate {
 export interface IUserSignInResponce {
   user: IUser
 }
-export type IUserSignInRequest = (dataForSign: IUserSignIn) => IUserSignInResponce
 export interface IResponceError {
   errors: {
     body: string[]

@@ -5,7 +5,6 @@ import activeLike from '../../../assets/img/active-like.svg'
 import { useAppSelector } from '../../../redux'
 
 interface ILikeProps {
-  // changed: boolean or isAuth: ??
   favorited: boolean
   favoritesCount: number
   toggleLike: () => void

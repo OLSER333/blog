@@ -46,6 +46,5 @@ export interface IArticleWithoutWrap {
 
 export interface IArticlesForRender {
   articles: IArticleWithoutWrap[]
-
   articlesCount: 0
 }

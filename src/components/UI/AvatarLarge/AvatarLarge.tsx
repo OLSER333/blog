@@ -1,5 +1,4 @@
 import React, { FC } from 'react'
-import styles from './AvatarLarge.module.scss'
 import { Avatar } from 'antd'
 
 interface IAvatarLargeProps {

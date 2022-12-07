@@ -18,16 +18,15 @@ const EditUserForm: FC<IEditUserFormProps> = ({ onEditUser }) => {
     register,
     handleSubmit,
     formState: { errors },
-    getValues,
   } = useForm<Inputs>({ mode: 'onTouched' })
+
   const onSubmit: SubmitHandler<Inputs> = (data) => {
-    console.log('newDataUser', data)
     onEditUser({
       user: {
-        email: data[EFormInps.EMAIL],
-        username: data[EFormInps.USERNAME],
+        email: data[EFormInps.EMAIL].toLowerCase().trim(),
+        username: data[EFormInps.USERNAME].trim(),
         password: data[EFormInps.PASSWORD],
-        image: data[EFormInps.AVATAR_PATH],
+        image: data[EFormInps.AVATAR_PATH].trim(),
       },
     })
   }

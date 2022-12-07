@@ -1,10 +1,8 @@
 import React from 'react'
-import { Link, useMatch } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 import styles from './CustomLink.module.scss'
 import { AnyForChanging } from '../../types/anyForChanging'
-import { useStorageWatch } from '../../hooks/useStorageWatch'
-import { TOKEN } from '../../utils/tokenLogic'
 
 export enum customLinksClasses {
   USUAL = 'usual',
@@ -17,16 +15,11 @@ interface IcustomLink {
   children: AnyForChanging
   to: string
   customClass?: customLinksClasses
-  // state?: any
   customLogic?: () => void | undefined
   state?: any
 }
 
 const CustomLink = ({ children, to, customClass, customLogic, state, ...props }: IcustomLink) => {
-  // const match = useMatch(to)
-  //   <Link to={to} className={match ? 'active-router-link' : ''} {...props}>
-  // useStorageWatch(TOKEN)
-
   const doWithRedirect = (fu: (() => void) | undefined) => {
     if (fu) fu()
   }

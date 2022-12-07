@@ -1,5 +1,4 @@
 import React, { FC } from 'react'
-import styles from './SignUpForm.module.scss'
 import Title, { titleColors } from '../../UI/Title/Title'
 import TextInput from '../../UI/TextInput/TextInput'
 import { FormErrorsMsg } from '../../../types/FormErrorsMsg'
@@ -12,9 +11,6 @@ import { EFormInps, Inputs } from '../../UI/FormWindow/FormWindow'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { IUserSignUp } from '../../../models/IUser'
 
-// interface SignUpFormProps {
-// }
-// : FC<SignUpFormProps>
 interface SignUpFormProps {
   onSignUp: (data: IUserSignUp) => void
 }
@@ -29,12 +25,11 @@ const SignUpForm: FC<SignUpFormProps> = ({ onSignUp }) => {
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     const forSignUp = {
       user: {
-        email: data[EFormInps.EMAIL],
+        email: data[EFormInps.EMAIL].toLowerCase(),
         password: data[EFormInps.PASSWORD],
-        username: data[EFormInps.USERNAME],
+        username: data[EFormInps.USERNAME].trim(),
       },
     }
-    // console.log('sign up data', forSignUp)
     onSignUp(forSignUp)
   }
 

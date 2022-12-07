@@ -10,10 +10,11 @@ import { loginUser } from '../../redux/commonSlice'
 import { useNavigate } from 'react-router-dom'
 import { ERoutes } from '../../routes/routes'
 import { toast } from 'react-toastify'
+
 const SignInUser = () => {
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
-  const [signIn, { data, isSuccess, error }] = useSignInMutation()
+  const [signIn, { data, isSuccess, error, status }] = useSignInMutation()
   useEffect(() => {
     if (isSuccess) {
       if (data) {
@@ -26,6 +27,7 @@ const SignInUser = () => {
   }, [isSuccess])
   useEffect(() => {
     if (error) {
+      console.log('st', status)
       toast.error('Email or password is invalid.')
     }
   }, [error])

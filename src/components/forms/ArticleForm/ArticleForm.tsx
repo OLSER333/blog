@@ -6,9 +6,7 @@ import Title, { titleColors } from '../../UI/Title/Title'
 import TextInput from '../../UI/TextInput/TextInput'
 import SubmitBtn from '../../UI/SubmitBtn/SubmitBtn'
 import TextareaInput from '../../UI/TextareaInput/TextareaInput'
-import EditTag from '../../UI/EditTag/EditTag'
 import { IArticleToCreate, IArticleToCreateWithoutWrap } from '../../../models/IArticle'
-import { v4 } from 'uuid'
 import TagList from '../../TagList/TagList'
 
 interface ArticleFormProps {
@@ -18,16 +16,14 @@ interface ArticleFormProps {
 }
 
 const ArticleForm: FC<ArticleFormProps> = ({ title, onSubmitArticle, stateForEdit }) => {
-  console.log('stateForEdit in articleForm)', stateForEdit)
   const [tags, setTags] = useState<string[]>(stateForEdit?.tagList || [])
   const {
     register,
     handleSubmit,
     formState: { errors },
-    getValues,
   } = useForm<Inputs>({ mode: 'onTouched' })
+
   const onSubmit: SubmitHandler<Inputs> = (data) => {
-    console.log(data)
     const dataForSubmit = {
       article: {
         ...data,
@@ -41,7 +37,8 @@ const ArticleForm: FC<ArticleFormProps> = ({ title, onSubmitArticle, stateForEdi
     }
   }
 
-  const addTag = (newTag: string) => {
+  const addTag = (draftNewTag: string) => {
+    const newTag = draftNewTag.trim()
     if (newTag && !tags.filter((tag) => tag === newTag).length) {
       setTags((prev) => [...prev, newTag])
     }
