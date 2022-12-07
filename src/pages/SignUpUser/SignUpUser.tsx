@@ -9,6 +9,7 @@ import { setToken } from '../../utils/tokenLogic'
 import { loginUser } from '../../redux/commonSlice'
 import { ERoutes } from '../../routes/routes'
 import { IUserSignIn, IUserSignUp } from '../../models/IUser'
+import { toast } from 'react-toastify'
 // interface ICreateUserProps {}
 // : FC<ICreateUserProps>
 const SignUpUser = () => {
@@ -21,12 +22,14 @@ const SignUpUser = () => {
         setToken(data.user.token)
         dispatch(loginUser(data.user))
         navigate(ERoutes.ARTICLES)
+        toast.success('Congratulations! You have created your account.')
       }
     }
   }, [isSuccess])
   useEffect(() => {
     if (error) {
       console.log('here eroror', error)
+      toast.error('Something went wrong! Try to reload.')
     }
   }, [error])
   const signUpUser = async (dataForSign: IUserSignUp) => {

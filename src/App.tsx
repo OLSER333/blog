@@ -16,6 +16,8 @@ import { useLazyGetUserQuery } from './redux/userApi'
 import { getToken } from './utils/tokenLogic'
 import { loginUser } from './redux/commonSlice'
 import { IUser, IUserSignInResponce } from './models/IUser'
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.min.css'
 
 const App = () => {
   // const nested = (
@@ -55,6 +57,7 @@ const App = () => {
 
   return (
     <>
+      <ToastContainer />
       <Routes>
         <Route path={ERoutes.HOME} element={<Layout />}>
           <Route index element={<Navigate to={ERoutes.ARTICLES} replace={true} />} />

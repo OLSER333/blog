@@ -6,6 +6,7 @@ import { usePostArticleMutation } from '../../redux'
 import { IArticleToCreate, IArticleToCreateWithoutWrap } from '../../models/IArticle'
 import { ERoutes } from '../../routes/routes'
 import { useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
 
 const CreateArticle = () => {
   const navigate = useNavigate()
@@ -22,12 +23,14 @@ const CreateArticle = () => {
     if (isSuccess) {
       if (data) {
         navigate(ERoutes.ARTICLES)
+        toast.success('Your article has posted!')
       }
     }
   }, [isSuccess])
   useEffect(() => {
     if (error) {
       console.log('here eroror', error)
+      toast.error('Ooops! Something went wrong!')
     }
   }, [error])
 

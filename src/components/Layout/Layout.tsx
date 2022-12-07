@@ -1,39 +1,24 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Outlet } from 'react-router-dom'
 import CustomLink, { customLinksClasses } from '../CustomLink/CustomLink'
 
 import styles from './Layout.module.scss'
 import avatar from '../../assets/img/avatar.png'
-import Title, { titleColors } from '../UI/Title/Title'
 import { ERoutes } from '../../routes/routes'
 import AvatarLarge from '../UI/AvatarLarge/AvatarLarge'
-import { Spin } from 'antd'
-import { delToken, isValidToken, TOKEN } from '../../utils/tokenLogic'
-import { useStorageWatch } from '../../hooks/useStorageWatch'
+import { delToken } from '../../utils/tokenLogic'
 import { useAppDispatch, useAppSelector } from '../../redux'
-import { loginUser, logoutUser } from '../../redux/commonSlice'
-// import { Ipost, useGetPostsQuery } from '../../redux'
+import { logoutUser } from '../../redux/commonSlice'
+import { toast } from 'react-toastify'
 
 const Layout = () => {
   const dispatch = useAppDispatch()
-  // useStorageWatch(TOKEN)
-  // type NavLinkclassNameType = { isActive: boolean; isPending: boolean }
-  // const isAuth = isValidToken()
-  // const [isAuth, setIsAtuh] = useState(isValidToken())
-
   const { userData } = useAppSelector((state) => state.commonSlice)
 
-  // console.log('isValid:', isAuth)
-  // ==================================================================
-  // const [numOfPost, setNumOfPost] = useState('1')
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
-  // const { data = [], isLoading } = useGetPostsQuery(numOfPost)
-
   function logoutWithRedirect() {
-    console.log('logout yoг ')
     delToken()
     dispatch(logoutUser())
+    toast.success('You have logged out.')
   }
 
   return (

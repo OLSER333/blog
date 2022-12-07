@@ -1,9 +1,7 @@
-import React, { FC, useEffect } from 'react'
-import styles from './SignInUser.module.scss'
+import React, { useEffect } from 'react'
 import FormWindow from '../../components/UI/FormWindow/FormWindow'
-import SignUpForm from '../../components/forms/SignUpForm/SignUpForm'
 import SignInForm from '../../components/forms/SignInForm/SignInForm'
-import { IUserSignIn, IUserSignInResponce } from '../../models/IUser'
+import { IUserSignIn } from '../../models/IUser'
 
 import { useSignInMutation } from '../../redux/userApi'
 import { setToken } from '../../utils/tokenLogic'
@@ -11,6 +9,7 @@ import { useAppDispatch } from '../../redux'
 import { loginUser } from '../../redux/commonSlice'
 import { useNavigate } from 'react-router-dom'
 import { ERoutes } from '../../routes/routes'
+import { toast } from 'react-toastify'
 const SignInUser = () => {
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
@@ -21,12 +20,13 @@ const SignInUser = () => {
         setToken(data.user.token)
         dispatch(loginUser(data.user))
         navigate(ERoutes.ARTICLES)
+        toast.success('You have logged into your account.')
       }
     }
   }, [isSuccess])
   useEffect(() => {
     if (error) {
-      console.log('here eroror', error)
+      toast.error('Email or password is invalid.')
     }
   }, [error])
   const signInUser = async (dataForSign: IUserSignIn) => {
@@ -37,7 +37,6 @@ const SignInUser = () => {
       <FormWindow>
         <SignInForm onSignIn={signInUser} />
       </FormWindow>
-      {error && <div>{JSON.stringify(error)}</div>}
     </div>
   )
 }

@@ -1,25 +1,21 @@
-import React, { FC } from 'react'
-import styles from './SingleArticle.module.scss'
+import React, { FC, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { useGetArticleQuery } from '../../redux'
 import ArticleCard from '../../components/ArticleCard/ArticleCard'
 import { Spin } from 'antd'
-import ReactMarkdown from 'react-markdown'
 import { ERoutes } from '../../routes/routes'
+import ErrorAlert from '../../components/UI/ErrorAlert/ErrorAlert'
+import { toast } from 'react-toastify'
 
-// interface SingleArticleProps {}
-// : FC<SingleArticleProps>
 const SingleArticle = () => {
   const params = useParams()
-  console.log(params)
   const { isLoading, error, data } = useGetArticleQuery(`${(ERoutes.OFFSET_ARTICLES, params.slug)}`)
-  console.log('da', data)
-  console.log(error)
 
   return (
     <>
-      {error && <h1>EROROROROR</h1>}
-      {isLoading && <Spin></Spin>}
+      {/* eslint-disable-next-line*/}
+      {error && <ErrorAlert>{"Can't load article"}</ErrorAlert>}
+      {isLoading && <Spin />}
       {data && <ArticleCard showBody={true} item={data.article} />}
     </>
   )

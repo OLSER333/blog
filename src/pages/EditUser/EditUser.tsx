@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom'
 import { IUserUpdate } from '../../models/IUser'
 import { useAppDispatch } from '../../redux'
 import { updateUserState } from '../../redux/commonSlice'
+import { toast } from 'react-toastify'
 
 const EditUser = () => {
   const dispatch = useAppDispatch()
@@ -26,12 +27,13 @@ const EditUser = () => {
         console.log('want update', data)
         dispatch(updateUserState({ ...data.user }))
         navigate(ERoutes.ARTICLES)
+        toast.success('Your profile has been updated.')
       }
     }
   }, [isSuccess])
   useEffect(() => {
     if (error) {
-      console.log('here eroror', error)
+      toast.error('Something went wrong! Try to reload.')
     }
   }, [error])
 

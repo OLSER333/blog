@@ -1,4 +1,4 @@
-import React, { FC, memo } from 'react'
+import React, { FC, memo, useEffect } from 'react'
 import styles from './ArticleCard.module.scss'
 import avatar from '../../assets/img/avatar.png'
 import { Avatar, Button, Popconfirm } from 'antd'
@@ -19,7 +19,8 @@ import {
   useLikeArticleMutation,
   useUnlikeArticleMutation,
 } from '../../redux'
-import { setCurArticlesPage } from '../../redux/commonSlice'
+import { loginUser, setCurArticlesPage } from '../../redux/commonSlice'
+import { toast } from 'react-toastify'
 
 interface IArticleItemProps {
   item: IArticleWithoutWrap
@@ -28,23 +29,25 @@ interface IArticleItemProps {
 
 const ArticleCard: FC<IArticleItemProps> = ({ item, showBody }) => {
   const navigate = useNavigate()
-  const [delArticle, { isError }] = useDelArticleMutation()
+  const [delArticle, { error, isSuccess }] = useDelArticleMutation()
   const [likeArticle, { error: likeError }] = useLikeArticleMutation()
   const [unlikeArticle, { error: unlikeError }] = useUnlikeArticleMutation()
   const { userData } = useAppSelector((state) => state.commonSlice)
-  const {
-    title,
-    body,
-    author,
-    favorited,
-    favoritesCount,
-    slug,
-    createdAt,
-    tagList,
-    updatedAt,
-    description,
-  } = item
+  const { title, body, author, favorited, favoritesCount, slug, createdAt, tagList, description } =
+    item
   const dateArt = new Date(createdAt)
+
+  useEffect(() => {
+    if (isSuccess) {
+      navigate(ERoutes.ARTICLES)
+      toast.success('Successfully deleted!')
+    }
+  }, [isSuccess])
+  useEffect(() => {
+    if (error) {
+      toast.error('Something went wrong! Try again.')
+    }
+  }, [error])
 
   const editBtn = {
     color: ' var(--success-color)',
@@ -54,7 +57,6 @@ const ArticleCard: FC<IArticleItemProps> = ({ item, showBody }) => {
   const onDeleteArticle = () => {
     delArticle(slug)
     setCurArticlesPage(1)
-    navigate(ERoutes.ARTICLES)
   }
 
   const toggleLike = () => {
@@ -74,8 +76,6 @@ const ArticleCard: FC<IArticleItemProps> = ({ item, showBody }) => {
             favoritesCount={favoritesCount}
             toggleLike={toggleLike}
           ></Like>
-          {/* <div>{`${JSON.stringify(unlikeError)}`}</div>*/}
-          {/* <div>{`${JSON.stringify(likeError)}`}</div>*/}
         </div>
         <ul className={styles.tagList}>
           {tagList && tagList.map((tag) => <Tag key={v4()}>{tag}</Tag>)}

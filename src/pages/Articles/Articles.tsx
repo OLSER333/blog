@@ -1,24 +1,16 @@
 import React, { useEffect, useState } from 'react'
 import styles from './Articles.module.scss'
-import { Alert, Button, Pagination, Spin } from 'antd'
-// import 'antd/dist/antd.css'
+import { Pagination, Spin } from 'antd'
 import ArticleCard from '../../components/ArticleCard/ArticleCard'
 
 import { useAppDispatch, useAppSelector, useLazyGetArticlesQuery } from '../../redux'
-// import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import { setCurArticlesPage } from '../../redux/commonSlice'
 import ErrorAlert from '../../components/UI/ErrorAlert/ErrorAlert'
 
 const Articles = () => {
   const dispatch = useAppDispatch()
   const { curArticlesPage } = useAppSelector((state) => state.commonSlice)
-  // const navigate = useNavigate()
-  // const location = useLocation()
-  // console.log('Articles location', location)
-  // могу вытащить отсюда search 20 и запихнуть в useGetArticlesQuery
-  // const [page, setPagPage] = useState<number>(
-  //   location.search ? Number(location.search.replace(/\D/gi, '')) / 20 + 1 : 1,
-  // )
+
   const [page, setPage] = useState(curArticlesPage)
   const limit = 10
 
@@ -27,32 +19,18 @@ const Articles = () => {
   const onPageChange = (page: number) => {
     setPage(page)
     dispatch(setCurArticlesPage(page))
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: 'smooth',
+    })
   }
   useEffect(() => {
     getArticles({ page, limit }, true)
   }, [])
   useEffect(() => {
-    // gthde. всегд обновлять, Или не надо
-    // if (page === 1) {
-    //   getArticles({ page, limit })
-    // } else {
     getArticles({ page, limit }, true)
-    // }
   }, [page])
-  //
-  //
-
-  // console.log(Number(location.search.replace(/\D/gi, '')))
-
-  // const handlePagination = (page: number) => {
-  //   console.log('page from pag', page)
-  //   setPagPage(page)
-  //   if (page > 1) {
-  //     navigate(`?offset=${(page - 1) * 20}`)
-  //   } else {
-  //     navigate('')
-  //   }
-  // }
 
   return (
     <>

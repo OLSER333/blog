@@ -6,6 +6,7 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import { usePutArticleMutation } from '../../redux'
 import { IArticleToCreate } from '../../models/IArticle'
 import { ERoutes } from '../../routes/routes'
+import { toast } from 'react-toastify'
 
 const EditArticle = () => {
   const location = useLocation()
@@ -15,7 +16,6 @@ const EditArticle = () => {
   const [putArticle, { data, isSuccess, error }] = usePutArticleMutation()
 
   const editArticle = async (body: IArticleToCreate) => {
-    console.log('for Edit', body)
     const slug = location.pathname.split('/')[2]
     await putArticle({ body, slug })
   }
@@ -23,13 +23,14 @@ const EditArticle = () => {
   useEffect(() => {
     if (isSuccess) {
       if (data) {
-        navigate(ERoutes.ARTICLES)
+        navigate(-1)
+        toast.success('Article has edited!')
       }
     }
   }, [isSuccess])
   useEffect(() => {
     if (error) {
-      console.log('here eroror', error)
+      toast.error('Something went wrong! Try again.')
     }
   }, [error])
 
