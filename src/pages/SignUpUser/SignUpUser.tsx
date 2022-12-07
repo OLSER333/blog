@@ -10,6 +10,7 @@ import { loginUser } from '../../redux/commonSlice'
 import { ERoutes } from '../../routes/routes'
 import { IUserSignUp } from '../../models/IUser'
 import { toast } from 'react-toastify'
+import getErrorTxt, { IErrorUserData } from '../../utils/getErrorTxt'
 const SignUpUser = () => {
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
@@ -26,7 +27,7 @@ const SignUpUser = () => {
   }, [isSuccess])
   useEffect(() => {
     if (error) {
-      toast.error('Something went wrong! Try to reload.')
+      toast.warning(getErrorTxt(error as IErrorUserData))
     }
   }, [error])
   const signUpUser = async (dataForSign: IUserSignUp) => {

@@ -8,6 +8,7 @@ import { IUserUpdate } from '../../models/IUser'
 import { useAppDispatch } from '../../redux'
 import { updateUserState } from '../../redux/commonSlice'
 import { toast } from 'react-toastify'
+import getErrorTxt, { IErrorUserData } from '../../utils/getErrorTxt'
 
 const EditUser = () => {
   const dispatch = useAppDispatch()
@@ -30,7 +31,7 @@ const EditUser = () => {
   }, [isSuccess])
   useEffect(() => {
     if (error) {
-      toast.error('Something went wrong! Try to reload.')
+      toast.warning(getErrorTxt(error as IErrorUserData))
     }
   }, [error])
 
